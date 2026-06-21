@@ -1189,7 +1189,7 @@ section {
 /* Profile Selector Grid */
 .profile-selector {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
   margin-bottom: 40px;
 }
@@ -2465,4 +2465,334 @@ button, a, [role="button"] {
   .profile-selector { gap: 8px; }
   .bottom-nav-item { padding: 6px 8px; min-width: 44px; font-size: 0.6rem; }
   .bottom-nav-item i { font-size: 1rem; }
+}
+
+/* ==========================================================================
+   HSE Learning Content Section
+   ========================================================================== */
+
+/* Section Parts */
+#hse-content { padding: 80px 0; }
+
+.hse-part {
+  margin-bottom: 64px;
+}
+
+.hse-part-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.hse-part-number {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-1);
+  background: var(--accent-glow);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: 6px;
+  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+.hse-part-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ── Vocabulary Tabs ── */
+.vocab-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.vocab-tab-btn {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vocab-tab-btn:hover {
+  border-color: var(--accent-1);
+  color: var(--text-primary);
+}
+
+.vocab-tab-btn.active {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+.vocab-tab-pane { display: none; }
+.vocab-tab-pane.active { display: block; }
+
+/* ── Vocabulary Grid & Cards ── */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.vocab-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.vocab-card:hover {
+  border-color: var(--card-hover-border);
+  transform: translateY(-2px);
+}
+
+.vocab-term {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-1);
+  margin-bottom: 6px;
+}
+
+.vocab-meaning {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.vocab-example {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ── Dialogue Accordion ── */
+.hse-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hse-acc-item {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.hse-acc-item.active {
+  border-color: var(--card-hover-border);
+}
+
+.hse-acc-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  padding: 18px 22px;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+}
+
+.hse-acc-btn:hover { background: rgba(16,185,129,0.05); }
+
+.hse-acc-icon {
+  flex-shrink: 0;
+  color: var(--accent-1);
+  transition: transform var(--transition-normal);
+}
+
+.hse-acc-item.active .hse-acc-icon { transform: rotate(180deg); }
+
+.hse-acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hse-situation {
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  margin: 0 22px 16px;
+  padding: 12px 14px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--accent-1);
+  line-height: 1.6;
+}
+
+.dialogue-script {
+  padding: 0 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dialogue-line {
+  display: flex;
+  gap: 10px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.dialogue-speaker {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 90px;
+  padding-top: 1px;
+}
+
+.dialogue-speaker.hse { color: var(--accent-1); }
+
+.dialogue-text {
+  color: var(--text-secondary);
+}
+
+.dialogue-text strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ── 30-Day Roadmap ── */
+.hse-roadmap-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+.roadmap-weeks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.roadmap-week {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.roadmap-week:hover {
+  border-color: var(--card-hover-border);
+  transform: translateY(-2px);
+}
+
+.roadmap-week-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  background: var(--accent-glow);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin-bottom: 14px;
+}
+
+.roadmap-week-goal {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.roadmap-week-target {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.roadmap-week-tasks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.roadmap-week-tasks li {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  padding-left: 16px;
+  position: relative;
+}
+
+.roadmap-week-tasks li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent-1);
+  font-weight: 700;
+}
+
+.roadmap-vocab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
+}
+
+.roadmap-vocab-chips span {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent-2);
+  background: rgba(6,182,212,0.08);
+  border: 1px solid rgba(6,182,212,0.2);
+  border-radius: 20px;
+  padding: 2px 10px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .vocab-grid { grid-template-columns: 1fr; }
+  .roadmap-weeks { grid-template-columns: 1fr; }
+  .vocab-tabs { gap: 8px; }
+  .vocab-tab-btn { font-size: 0.8rem; padding: 8px 14px; }
+  .dialogue-speaker { min-width: 70px; }
+}
+
+@media (max-width: 480px) {
+  .hse-part-title { font-size: 1.15rem; }
+  .hse-acc-btn { font-size: 0.88rem; padding: 14px 16px; }
+  .dialogue-script { padding: 0 16px 16px; }
+  .hse-situation { margin: 0 16px 14px; }
 }

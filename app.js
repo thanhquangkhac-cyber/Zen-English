@@ -262,7 +262,45 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================================================
-  // 9. Word of the Day
+  // 9. HSE Vocabulary Topic Tabs
+  // ============================================================
+  const vocabTabBtns = document.querySelectorAll('.vocab-tab-btn');
+  const vocabTabPanes = document.querySelectorAll('.vocab-tab-pane');
+
+  vocabTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const topic = btn.getAttribute('data-vocab');
+      vocabTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      vocabTabPanes.forEach(pane => {
+        pane.classList.toggle('active', pane.getAttribute('data-vocab') === topic);
+      });
+    });
+  });
+
+  // ============================================================
+  // 10. HSE Dialogue Accordion
+  // ============================================================
+  document.querySelectorAll('.hse-acc-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const body = item.querySelector('.hse-acc-body');
+      const isOpen = item.classList.contains('active');
+
+      document.querySelectorAll('.hse-acc-item').forEach(i => {
+        i.classList.remove('active');
+        i.querySelector('.hse-acc-body').style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('active');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ============================================================
+  // 11. Word of the Day
   // ============================================================
   const words = [
     { word: 'Proactive',    phonetic: '/proʊˈæktɪv/',   pos: 'adjective', meaning: 'Chủ động; hành động trước khi vấn đề xảy ra thay vì chờ đợi và phản ứng', example: '"We need a more <strong>proactive</strong> approach to handling customer complaints."' },
