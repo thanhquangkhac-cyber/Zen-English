@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Zen English - Tinh Hoa Học Tiếng Anh Cho Người Đi Làm</title>
+  
+  <!-- Meta Descriptions for SEO -->
+  <meta name="description" content="Zen English hướng dẫn phương pháp học tiếng Anh nhanh nhất, hiệu quả nhất dành cho người đi làm bận rộn. Tối ưu thời gian học, thực chiến và dễ tiếp cận.">
+  <meta name="keywords" content="học tiếng anh, tiếng anh giao tiếp, người đi làm, học nhanh, tự học tiếng anh, lộ trình tiếng anh">
+  <meta name="author" content="Zen English Team">
+  
+  <!-- Preconnect to Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- SVG gradient defs for progress ring -->
+  <svg class="ring-gradient-defs" aria-hidden="true">
+    <defs>
+      <linearGradient id="ring-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#10b981"/>
+        <stop offset="100%" stop-color="#06b6d4"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress-bar"></div>
+
+  <!-- Scroll to Top -->
+  <button id="scroll-to-top" aria-label="Về đầu trang"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- Background Decorative Glowing Blobs -->
+  <div class="bg-glow-container">
+    <div class="glow-blob blob-1"></div>
+    <div class="glow-blob blob-2"></div>
+    <div class="glow-blob blob-3"></div>
+  </div>
+
+  <!-- Mobile Nav Overlay -->
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <span class="mobile-drawer-logo"><i class="fas fa-wind"></i> Zen English</span>
+      <button class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Đóng menu"><i class="fas fa-times"></i></button>
+    </div>
+    <nav class="mobile-drawer-nav">
+      <a href="#phuong-phap" class="mobile-nav-link"><i class="fas fa-brain"></i> Phương Pháp</a>
+      <a href="#lo-trinh" class="mobile-nav-link"><i class="fas fa-map-signs"></i> Lộ Trình</a>
+      <a href="#muc-tieu" class="mobile-nav-link"><i class="fas fa-bullseye"></i> Mục Tiêu</a>
+      <a href="#tai-nguyen" class="mobile-nav-link"><i class="fas fa-book-open"></i> Tài Nguyên</a>
+      <a href="#habit-tracker" class="mobile-nav-link"><i class="fas fa-tasks"></i> Checklist</a>
+      <a href="#hoi-dap" class="mobile-nav-link"><i class="fas fa-question-circle"></i> Giải Đáp</a>
+    </nav>
+    <div class="mobile-drawer-footer">
+      <a href="#lo-trinh" class="btn-primary mobile-drawer-cta"><i class="fas fa-rocket"></i> Bắt Đầu Ngay</a>
+      <button id="theme-toggle-mobile" class="theme-toggle-drawer"><i class="fas fa-moon"></i><i class="fas fa-sun"></i> Chuyển giao diện</button>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="#" class="logo" id="nav-brand">
+        <i class="fas fa-wind"></i>
+        <span>Zen English</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#phuong-phap">Phương Pháp</a></li>
+          <li><a href="#lo-trinh">Lộ Trình</a></li>
+          <li><a href="#muc-tieu">Mục Tiêu</a></li>
+          <li><a href="#tai-nguyen">Tài Nguyên</a></li>
+          <li><a href="#habit-tracker">Checklist</a></li>
+          <li><a href="#hoi-dap">Giải Đáp</a></li>
+        </ul>
+      </nav>
+
+      <div class="controls-container">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark theme" title="Chuyển chế độ sáng/tối">
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-sun"></i>
+        </button>
+        <a href="#lo-trinh" class="btn-primary" id="navbar-cta">Bắt Đầu Ngay</a>
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Toggle navigation menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Bottom Nav Bar (mobile only) -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <a href="#home" class="bottom-nav-item active" data-section="home">
+      <i class="fas fa-home"></i><span>Trang chủ</span>
+    </a>
+    <a href="#lo-trinh" class="bottom-nav-item" data-section="lo-trinh">
+      <i class="fas fa-map-signs"></i><span>Lộ trình</span>
+    </a>
+    <a href="#habit-tracker" class="bottom-nav-item" data-section="habit-tracker">
+      <i class="fas fa-tasks"></i><span>Checklist</span>
+    </a>
+    <a href="#tai-nguyen" class="bottom-nav-item" data-section="tai-nguyen">
+      <i class="fas fa-book-open"></i><span>Tài nguyên</span>
+    </a>
+    <a href="#hoi-dap" class="bottom-nav-item" data-section="hoi-dap">
+      <i class="fas fa-question-circle"></i><span>Hỏi đáp</span>
+    </a>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container hero-layout">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fas fa-circle-check"></i>
+            <span>Thiết kế thực chiến cho người bận rộn</span>
+          </div>
+          <h1 class="hero-title">
+            Làm chủ tiếng Anh với <span class="text-gradient">15 phút</span> mỗi ngày
+          </h1>
+          <p class="hero-subtitle">
+            Phương pháp tối giản, khoa học giúp người đi làm bứt phá năng lực giao tiếp, tối ưu hóa thời gian và nâng tầm sự nghiệp mà không cần học thuộc lòng.
+          </p>
+          <div class="hero-cta">
+            <a href="#lo-trinh" class="btn-primary">Thiết lập lộ trình</a>
+            <a href="#phuong-phap" class="btn-secondary">Tìm hiểu phương pháp <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        
+        <div class="hero-visual">
+          <!-- Main stats container -->
+          <div class="visual-card">
+            <div class="visual-header">
+              <span class="visual-title">Lộ trình hôm nay</span>
+              <div class="status-dot"></div>
+            </div>
+            
+            <div class="visual-stats">
+              <div class="stat-row">
+                <div class="stat-icon">
+                  <i class="fas fa-hourglass-start"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-label">Thời gian hoàn thành</span>
+                  <span class="stat-value">15 phút / Ngày</span>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar-fill" style="width: 100%;"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="stat-row">
+                <div class="stat-icon">
+                  <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-label">Chuỗi học tập (Streak)</span>
+                  <span class="stat-value">12 Ngày liên tiếp</span>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar-fill" style="width: 75%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stat-row">
+                <div class="stat-icon">
+                  <i class="fas fa-award"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-label">Mục tiêu quý</span>
+                  <span class="stat-value">Đạt mốc phản xạ B1</span>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar-fill" style="width: 60%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating glass items -->
+          <div class="floating-card fc-1">
+            <div class="fc-icon"><i class="fas fa-bolt"></i></div>
+            <div class="fc-text">Phản xạ giao tiếp</div>
+          </div>
+          
+          <div class="floating-card fc-2">
+            <div class="fc-icon" style="color: #10b981;"><i class="fas fa-chart-line"></i></div>
+            <div class="fc-text">X2 Hiệu suất học</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Methodology Section -->
+    <section id="phuong-phap">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Phương Pháp Cốt Lõi</span>
+          <h2 class="section-title">Học Tiếng Anh Tinh Gọn</h2>
+          <p class="section-desc">
+            Bỏ qua lối mòn học thuật rườm rà. Dưới đây là 4 phương pháp tối giản, khoa học mang lại hiệu quả cao nhất cho người bận rộn.
+          </p>
+        </div>
+        
+        <div class="methods-grid">
+          <!-- Card 1 -->
+          <div class="method-card">
+            <span class="method-num">01</span>
+            <div class="method-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3 class="method-title">Micro-learning</h3>
+            <p class="method-desc">
+              Tận dụng những khoảng thời gian trống 5-10 phút trong ngày để học từ vựng hoặc nghe podcast thay vì cố gắng học liên tục 2 tiếng mệt mỏi.
+            </p>
+            <a href="#lo-trinh" class="method-action">Xem lộ trình mẫu <i class="fas fa-chevron-right"></i></a>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="method-card">
+            <span class="method-num">02</span>
+            <div class="method-icon">
+              <i class="fas fa-headphones"></i>
+            </div>
+            <h3 class="method-title">Contextual Input</h3>
+            <p class="method-desc">
+              Nạp tiếng Anh qua các nội dung thực tế liên quan trực tiếp đến ngành nghề làm việc của bạn giúp não bộ ghi nhớ tự nhiên và có chiều sâu.
+            </p>
+            <a href="#tai-nguyen" class="method-action">Xem kho tài nguyên <i class="fas fa-chevron-right"></i></a>
+          </div>
+          
+          <!-- Card 3 -->
+          <div class="method-card">
+            <span class="method-num">03</span>
+            <div class="method-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3 class="method-title">Spaced Repetition</h3>
+            <p class="method-desc">
+              Hệ thống ôn tập ngắt quãng thông minh giúp từ vựng đi thẳng vào trí nhớ dài hạn, giảm thiểu việc quên từ sau khi học.
+            </p>
+            <a href="#tai-nguyen" class="method-action">Tìm công cụ Flashcard <i class="fas fa-chevron-right"></i></a>
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="method-card">
+            <span class="method-num">04</span>
+            <div class="method-icon">
+              <i class="fas fa-comment-dots"></i>
+            </div>
+            <h3 class="method-title">Output-First</h3>
+            <p class="method-desc">
+              Ưu tiên thực hành đầu ra trước thông qua kỹ thuật nhại giọng (Shadowing) và viết ngắn về công việc hàng ngày của bạn.
+            </p>
+            <a href="#lo-trinh" class="method-action">Xem cách luyện nói <i class="fas fa-chevron-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap by Target Audience Section -->
+    <section id="lo-trinh" class="lo-trinh-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Kế Hoạch Thực Chiến</span>
+          <h2 class="section-title">Lộ Trình Theo <span class="text-gradient">Đối Tượng</span></h2>
+          <p class="section-desc">
+            Chọn nhóm nghề nghiệp của bạn — mỗi lộ trình được cá nhân hóa với từ vựng, kỹ năng và tài nguyên phù hợp nhất.
+          </p>
+        </div>
+
+        <!-- Profile Selector -->
+        <div class="profile-selector">
+          <div class="profile-card active" data-profile="office">
+            <div class="profile-card-icon">💼</div>
+            <div class="profile-card-name">Văn Phòng</div>
+            <div class="profile-card-sub">Email · Meetings · Reports</div>
+          </div>
+          <div class="profile-card" data-profile="tech">
+            <div class="profile-card-icon">💻</div>
+            <div class="profile-card-name">IT / Kỹ Thuật</div>
+            <div class="profile-card-sub">Docs · Code Review · Remote</div>
+          </div>
+          <div class="profile-card" data-profile="sales">
+            <div class="profile-card-icon">📈</div>
+            <div class="profile-card-name">Kinh Doanh</div>
+            <div class="profile-card-sub">Clients · Pitches · Negotiation</div>
+          </div>
+          <div class="profile-card" data-profile="manager">
+            <div class="profile-card-icon">🎯</div>
+            <div class="profile-card-name">Quản Lý</div>
+            <div class="profile-card-sub">Leadership · Strategy · Board</div>
+          </div>
+        </div>
+
+        <!-- Profile Panels -->
+        <div class="profile-panels">
+
+          <!-- ── OFFICE ── -->
+          <div class="profile-panel active" id="panel-office">
+            <div class="pp-layout">
+              <div class="pp-left">
+                <div class="pp-header">
+                  <span class="pp-emoji">💼</span>
+                  <div>
+                    <div class="pp-title">Nhân Viên Văn Phòng</div>
+                    <div class="pp-role">Admin · HR · Kế toán · Hành chính</div>
+                  </div>
+                </div>
+                <p class="pp-desc">Bạn cần tiếng Anh để viết email chuyên nghiệp, tham gia cuộc họp và đọc hiểu tài liệu nội bộ hằng ngày.</p>
+
+                <div class="skill-focus">
+                  <div class="skill-focus-title">Phân bổ kỹ năng</div>
+                  <div class="skill-bar-list">
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">✍️ Viết</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:55%" data-color="accent1"></div></div>
+                      <span class="skill-bar-pct">55%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">👂 Nghe</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:25%" data-color="accent2"></div></div>
+                      <span class="skill-bar-pct">25%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">🗣️ Nói</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:10%" data-color="amber"></div></div>
+                      <span class="skill-bar-pct">10%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">📖 Đọc</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:10%" data-color="accent1"></div></div>
+                      <span class="skill-bar-pct">10%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="key-phrases">
+                  <div class="key-phrases-title">Câu cần học ngay</div>
+                  <div class="phrase-list">
+                    <div class="phrase-item">"I'm writing to follow up on..."</div>
+                    <div class="phrase-item">"Please find the attached report."</div>
+                    <div class="phrase-item">"Could you please clarify...?"</div>
+                    <div class="phrase-item">"I'd like to reschedule our meeting."</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pp-right">
+                <div class="pp-time-tabs">
+                  <button class="pp-time-btn active" data-time="15">15 phút</button>
+                  <button class="pp-time-btn" data-time="30">30 phút</button>
+                  <button class="pp-time-btn" data-time="60">60 phút</button>
+                </div>
+                <div class="pp-schedule">
+                  <!-- 15 min -->
+                  <div class="pp-schedule-pane active" data-time="15">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">5′</span><div class="time-detail"><h4>Flashcard email phrases</h4><p>Ôn 10 thẻ cụm từ email công sở trên Anki.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Nghe BBC 6 Minute English</h4><p>Chọn chủ đề workplace hoặc business communication.</p></div></li>
+                    </ul>
+                  </div>
+                  <!-- 30 min -->
+                  <div class="pp-schedule-pane" data-time="30">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Ôn từ vựng + Nghe podcast</h4><p>Flashcard email phrases & nghe 1 đoạn BBC.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Đọc & viết email mẫu</h4><p>Đọc 1 email mẫu chuyên nghiệp, sau đó tự viết lại 1 tình huống tương tự.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">5′</span><div class="time-detail"><h4>Kiểm tra với Grammarly</h4><p>Paste email vừa viết vào Grammarly, đọc và ghi nhớ các gợi ý sửa.</p></div></li>
+                    </ul>
+                  </div>
+                  <!-- 60 min -->
+                  <div class="pp-schedule-pane" data-time="60">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Nghe + Ghi chú từ mới</h4><p>Nghe All Ears English, ghi lại cụm từ công sở mới gặp.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">20′</span><div class="time-detail"><h4>Luyện viết email theo tình huống</h4><p>Viết email xin lỗi, email từ chối lịch hẹn, email báo cáo tiến độ.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Đọc bản tin công ty bằng tiếng Anh</h4><p>Đọc 1 bài blog nội bộ hoặc bản tin HR bằng tiếng Anh. Tìm 3 từ mới.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Cập nhật Flashcard & Review</h4><p>Thêm 5 cụm từ mới vào Anki, ôn lại bài viết đã làm để tìm lỗi.</p></div></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="pp-tools">
+                  <div class="pp-tools-title">Công cụ khuyên dùng</div>
+                  <div class="pp-tool-chips">
+                    <a href="https://www.grammarly.com/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">📧 Grammarly</a>
+                    <a href="https://www.youtube.com/@bbclearningenglish" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🎙️ BBC Learning English</a>
+                    <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🃏 Anki</a>
+                    <a href="https://claude.ai" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🤖 Claude AI</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── IT / TECH ── -->
+          <div class="profile-panel" id="panel-tech">
+            <div class="pp-layout">
+              <div class="pp-left">
+                <div class="pp-header">
+                  <span class="pp-emoji">💻</span>
+                  <div>
+                    <div class="pp-title">Kỹ Sư / Developer</div>
+                    <div class="pp-role">Software · Data · DevOps · QA</div>
+                  </div>
+                </div>
+                <p class="pp-desc">Bạn cần đọc tài liệu kỹ thuật, viết comment code, tham gia daily standup và làm việc với team quốc tế.</p>
+
+                <div class="skill-focus">
+                  <div class="skill-focus-title">Phân bổ kỹ năng</div>
+                  <div class="skill-bar-list">
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">📖 Đọc</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:50%" data-color="accent1"></div></div>
+                      <span class="skill-bar-pct">50%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">👂 Nghe</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:30%" data-color="accent2"></div></div>
+                      <span class="skill-bar-pct">30%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">🗣️ Nói</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:15%" data-color="amber"></div></div>
+                      <span class="skill-bar-pct">15%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">✍️ Viết</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:5%" data-color="accent1"></div></div>
+                      <span class="skill-bar-pct">5%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="key-phrases">
+                  <div class="key-phrases-title">Câu cần học ngay</div>
+                  <div class="phrase-list">
+                    <div class="phrase-item">"I'll look into this and get back to you."</div>
+                    <div class="phrase-item">"The issue is related to a race condition."</div>
+                    <div class="phrase-item">"Let me walk you through the architecture."</div>
+                    <div class="phrase-item">"Can you assign this ticket to me?"</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pp-right">
+                <div class="pp-time-tabs">
+                  <button class="pp-time-btn active" data-time="15">15 phút</button>
+                  <button class="pp-time-btn" data-time="30">30 phút</button>
+                  <button class="pp-time-btn" data-time="60">60 phút</button>
+                </div>
+                <div class="pp-schedule">
+                  <div class="pp-schedule-pane active" data-time="15">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">5′</span><div class="time-detail"><h4>Flashcard tech vocabulary</h4><p>Ôn 10 thẻ thuật ngữ kỹ thuật tiếng Anh: API, deployment, refactor…</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Đọc 1 bài trên Dev.to / GitHub blog</h4><p>Đọc lướt headline và phần summary của bài kỹ thuật bằng tiếng Anh.</p></div></li>
+                    </ul>
+                  </div>
+                  <div class="pp-schedule-pane" data-time="30">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Nghe tech podcast</h4><p>Syntax.fm, Changelog, hoặc Software Engineering Daily — chọn 1 episode ngắn.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Đọc tech docs / README tiếng Anh</h4><p>Đọc document của framework/tool bạn đang dùng. Highlight cụm từ hay.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">5′</span><div class="time-detail"><h4>Luyện giải thích standup</h4><p>Đọc to bằng tiếng Anh: hôm nay tôi làm gì, bị block gì, plan ngày mai.</p></div></li>
+                    </ul>
+                  </div>
+                  <div class="pp-schedule-pane" data-time="60">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Nghe + xem transcript podcast tech</h4><p>Nghe chủ động, dừng lại tra từ và ghi chép cụm từ kỹ thuật mới.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">20′</span><div class="time-detail"><h4>Đọc sâu documentation</h4><p>Đọc 1 bài kỹ thuật dài, tóm tắt lại bằng tiếng Anh trong 3–5 câu.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Shadowing: Tech talk / Conference talk</h4><p>Chọn 1 đoạn ngắn từ Google I/O, WWDC hoặc JSConf rồi nhại lại.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Viết comment code / PR description</h4><p>Thực hành viết commit message và PR description bằng tiếng Anh chuẩn.</p></div></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="pp-tools">
+                  <div class="pp-tools-title">Công cụ khuyên dùng</div>
+                  <div class="pp-tool-chips">
+                    <a href="https://syntax.fm/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🎙️ Syntax.fm</a>
+                    <a href="https://dev.to/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">📚 Dev.to</a>
+                    <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🃏 Anki</a>
+                    <a href="https://claude.ai" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🤖 Claude AI</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SALES / BUSINESS ── -->
+          <div class="profile-panel" id="panel-sales">
+            <div class="pp-layout">
+              <div class="pp-left">
+                <div class="pp-header">
+                  <span class="pp-emoji">📈</span>
+                  <div>
+                    <div class="pp-title">Kinh Doanh / Sales</div>
+                    <div class="pp-role">Sales · Marketing · Business Dev</div>
+                  </div>
+                </div>
+                <p class="pp-desc">Bạn cần thuyết phục khách hàng quốc tế, pitching sản phẩm, đàm phán hợp đồng và xây dựng mối quan hệ bằng tiếng Anh.</p>
+
+                <div class="skill-focus">
+                  <div class="skill-focus-title">Phân bổ kỹ năng</div>
+                  <div class="skill-bar-list">
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">🗣️ Nói</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:50%" data-color="amber"></div></div>
+                      <span class="skill-bar-pct">50%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">✍️ Viết</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:25%" data-color="accent1"></div></div>
+                      <span class="skill-bar-pct">25%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">👂 Nghe</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:20%" data-color="accent2"></div></div>
+                      <span class="skill-bar-pct">20%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">📖 Đọc</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:5%" data-color="accent1"></div></div>
+                      <span class="skill-bar-pct">5%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="key-phrases">
+                  <div class="key-phrases-title">Câu cần học ngay</div>
+                  <div class="phrase-list">
+                    <div class="phrase-item">"Let me walk you through our proposal."</div>
+                    <div class="phrase-item">"This solution addresses your pain points."</div>
+                    <div class="phrase-item">"Can we find a middle ground on pricing?"</div>
+                    <div class="phrase-item">"I'll send you a follow-up by EOD."</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pp-right">
+                <div class="pp-time-tabs">
+                  <button class="pp-time-btn active" data-time="15">15 phút</button>
+                  <button class="pp-time-btn" data-time="30">30 phút</button>
+                  <button class="pp-time-btn" data-time="60">60 phút</button>
+                </div>
+                <div class="pp-schedule">
+                  <div class="pp-schedule-pane active" data-time="15">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">5′</span><div class="time-detail"><h4>Flashcard sales phrases</h4><p>Ôn 10 cụm từ thuyết phục và đàm phán bằng tiếng Anh trên Anki.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Nghe 1 đoạn TED Talk về persuasion</h4><p>Nghe và nhẩm lại cách diễn đạt của speaker khi trình bày ý kiến.</p></div></li>
+                    </ul>
+                  </div>
+                  <div class="pp-schedule-pane" data-time="30">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Nghe HBR IdeaCast</h4><p>Nghe podcast về business strategy và giao tiếp thuyết phục.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Luyện Elevator Pitch</h4><p>Tập giới thiệu sản phẩm/dịch vụ của bạn bằng tiếng Anh trong 60 giây.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">5′</span><div class="time-detail"><h4>Viết follow-up email mẫu</h4><p>Viết 1 email follow-up sau cuộc meeting với khách hàng giả định.</p></div></li>
+                    </ul>
+                  </div>
+                  <div class="pp-schedule-pane" data-time="60">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Xem TED Talk + Shadowing</h4><p>Xem 1 TED Talk về business, nhại lại 3 đoạn ấn tượng nhất.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">20′</span><div class="time-detail"><h4>Luyện pitch & roleplay</h4><p>Tự đóng vai pitching cho khách hàng, ghi âm lại rồi nghe và cải thiện.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Đọc case study kinh doanh</h4><p>Đọc 1 business case study tiếng Anh, ghi chép thuật ngữ và cách lập luận.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Viết đề xuất / Proposal ngắn</h4><p>Dùng Claude AI hỗ trợ viết 1 đoạn proposal tiếng Anh, sau đó tự sửa.</p></div></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="pp-tools">
+                  <div class="pp-tools-title">Công cụ khuyên dùng</div>
+                  <div class="pp-tool-chips">
+                    <a href="https://www.youtube.com/@TED" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🎤 TED Talks</a>
+                    <a href="https://hbr.org/2018/01/introducing-hbr-ideacast" target="_blank" rel="noopener" class="tool-chip tool-chip--link">📊 HBR IdeaCast</a>
+                    <a href="https://elsaspeak.com/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🎙️ ELSA Speak</a>
+                    <a href="https://www.grammarly.com/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">✍️ Grammarly</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── MANAGER / LEADER ── -->
+          <div class="profile-panel" id="panel-manager">
+            <div class="pp-layout">
+              <div class="pp-left">
+                <div class="pp-header">
+                  <span class="pp-emoji">🎯</span>
+                  <div>
+                    <div class="pp-title">Quản Lý / Team Lead</div>
+                    <div class="pp-role">PM · Team Lead · Director · C-Level</div>
+                  </div>
+                </div>
+                <p class="pp-desc">Bạn cần dẫn dắt cuộc họp, trình bày chiến lược với board quốc tế, viết báo cáo cấp cao và coaching team bằng tiếng Anh.</p>
+
+                <div class="skill-focus">
+                  <div class="skill-focus-title">Phân bổ kỹ năng</div>
+                  <div class="skill-bar-list">
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">🗣️ Nói</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:40%" data-color="amber"></div></div>
+                      <span class="skill-bar-pct">40%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">✍️ Viết</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:35%" data-color="accent1"></div></div>
+                      <span class="skill-bar-pct">35%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">👂 Nghe</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:20%" data-color="accent2"></div></div>
+                      <span class="skill-bar-pct">20%</span>
+                    </div>
+                    <div class="skill-bar-item">
+                      <span class="skill-bar-label">📖 Đọc</span>
+                      <div class="skill-bar-track"><div class="skill-bar-fill" style="width:5%" data-color="accent1"></div></div>
+                      <span class="skill-bar-pct">5%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="key-phrases">
+                  <div class="key-phrases-title">Câu cần học ngay</div>
+                  <div class="phrase-list">
+                    <div class="phrase-item">"Let's align on the key objectives first."</div>
+                    <div class="phrase-item">"I'd like to get everyone's buy-in."</div>
+                    <div class="phrase-item">"This initiative will drive growth by Q4."</div>
+                    <div class="phrase-item">"Let's take this offline after the meeting."</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pp-right">
+                <div class="pp-time-tabs">
+                  <button class="pp-time-btn active" data-time="15">15 phút</button>
+                  <button class="pp-time-btn" data-time="30">30 phút</button>
+                  <button class="pp-time-btn" data-time="60">60 phút</button>
+                </div>
+                <div class="pp-schedule">
+                  <div class="pp-schedule-pane active" data-time="15">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">5′</span><div class="time-detail"><h4>Flashcard leadership phrases</h4><p>Ôn 10 cụm từ lãnh đạo và quản lý dự án cấp cao bằng tiếng Anh.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Nghe executive podcast</h4><p>HBR IdeaCast hoặc Masters of Scale — nghe trên đường đi làm.</p></div></li>
+                    </ul>
+                  </div>
+                  <div class="pp-schedule-pane" data-time="30">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Nghe leadership podcast</h4><p>Masters of Scale, Dare to Lead — chọn 1 episode về communication.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Luyện facilitation ngôn ngữ</h4><p>Tập mở đầu meeting, chuyển chủ đề và tóm tắt kết luận bằng tiếng Anh.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">5′</span><div class="time-detail"><h4>Viết executive summary</h4><p>Tóm tắt 1 dự án đang làm thành 3 câu tiếng Anh cho sếp quốc tế.</p></div></li>
+                    </ul>
+                  </div>
+                  <div class="pp-schedule-pane" data-time="60">
+                    <ul class="planner-timeline">
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Xem CEO/Leader talk + Shadowing</h4><p>Chọn speech từ Satya Nadella, Indra Nooyi hoặc bất kỳ CEO bạn ngưỡng mộ.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">20′</span><div class="time-detail"><h4>Viết strategic document</h4><p>Viết OKR, meeting agenda hoặc quarterly review bằng tiếng Anh. Dùng Claude AI hỗ trợ.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">15′</span><div class="time-detail"><h4>Luyện board presentation</h4><p>Tập trình bày 1 slide strategy hoặc KPI update bằng tiếng Anh trước gương.</p></div></li>
+                      <li class="timeline-item"><span class="time-tag">10′</span><div class="time-detail"><h4>Đọc báo cáo ngành bằng tiếng Anh</h4><p>Đọc McKinsey Insights, Deloitte Report — ghi 3 insight quan trọng nhất.</p></div></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="pp-tools">
+                  <div class="pp-tools-title">Công cụ khuyên dùng</div>
+                  <div class="pp-tool-chips">
+                    <a href="https://mastersofscale.com/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🎤 Masters of Scale</a>
+                    <a href="https://hbr.org/2018/01/introducing-hbr-ideacast" target="_blank" rel="noopener" class="tool-chip tool-chip--link">📊 HBR IdeaCast</a>
+                    <a href="https://claude.ai" target="_blank" rel="noopener" class="tool-chip tool-chip--link">🤖 Claude AI</a>
+                    <a href="https://www.grammarly.com/" target="_blank" rel="noopener" class="tool-chip tool-chip--link">✍️ Grammarly</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /profile-panels -->
+      </div>
+    </section>
+
+    <!-- Target Calculator/Estimator Section -->
+    <section id="muc-tieu">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Công Cụ Tương Tác</span>
+          <h2 class="section-title">Ước Tính Thời Gian Đạt Mục Tiêu</h2>
+          <p class="section-desc">
+            Nhập trình độ hiện tại, đích đến mong muốn và thời gian cam kết mỗi ngày để tính toán lộ trình thời gian thực tế.
+          </p>
+        </div>
+        
+        <div class="estimator-layout">
+          <!-- Inputs Card -->
+          <div class="estimator-form-card">
+            <div>
+              <div class="form-group">
+                <label for="current-level">Trình độ hiện tại của bạn</label>
+                <select id="current-level" class="form-select">
+                  <option value="a1">Mới bắt đầu / Mất gốc (A1)</option>
+                  <option value="a2">Sơ cấp / Có nền tảng cơ bản (A2)</option>
+                  <option value="b1" selected>Trung cấp / Đọc hiểu khá (B1)</option>
+                  <option value="b2">Trung cấp khá / Giao tiếp cơ bản (B2)</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="target-level">Mục tiêu bạn muốn đạt được</label>
+                <select id="target-level" class="form-select">
+                  <option value="a2">Giao tiếp đơn giản (A2)</option>
+                  <option value="b1">Phản xạ tự tin trong đời sống (B1)</option>
+                  <option value="b2" selected>Giao tiếp thuyết trình công việc (B2)</option>
+                  <option value="c1">Làm việc, thương thảo chuyên nghiệp (C1)</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="daily-time">Thời gian học cam kết mỗi ngày</label>
+                <select id="daily-time" class="form-select">
+                  <option value="15">15 Phút / Ngày</option>
+                  <option value="30" selected>30 Phút / Ngày</option>
+                  <option value="60">60 Phút / Ngày</option>
+                </select>
+              </div>
+            </div>
+            
+            <button id="calculate-btn" class="btn-primary" style="justify-content: center; width: 100%; margin-top: 16px;">
+              <i class="fas fa-calculator"></i> Tính Toán Kết Quả
+            </button>
+          </div>
+          
+          <!-- Results Card -->
+          <div class="estimator-result-card">
+            <div class="result-icon" id="result-icon">
+              <i class="fas fa-hourglass-half"></i>
+            </div>
+            <span class="result-label">Thời gian ước tính cần học</span>
+            <div class="result-time" id="result-time">~ 12 Tháng</div>
+            <p class="result-advice" id="result-advice">
+              Quỹ thời gian 30 phút là điểm cân bằng lý tưởng cho người đi làm. Bạn có tốc độ tiến bộ bền vững. Hãy tập trung 100% vào việc nghe podcast và học từ vựng thực tế.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resource Vault Section -->
+    <section id="tai-nguyen" style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Công Cụ Đắc Lực</span>
+          <h2 class="section-title">Tủ Tài Nguyên Chọn Lọc</h2>
+          <p class="section-desc">
+            Không cần ôm đồm hàng trăm cuốn sách. Chỉ cần làm chủ một vài công cụ và tài nguyên chất lượng dưới đây.
+          </p>
+        </div>
+        
+        <div class="resources-tabs">
+          <button class="resource-filter-btn active" data-filter="all">Tất Cả</button>
+          <button class="resource-filter-btn" data-filter="app">Ứng Dụng</button>
+          <button class="resource-filter-btn" data-filter="podcast">Podcasts</button>
+          <button class="resource-filter-btn" data-filter="youtube"><i class="fab fa-youtube"></i> YouTube</button>
+          <button class="resource-filter-btn" data-filter="ai">Công Cụ AI</button>
+        </div>
+
+        <div class="resources-grid">
+          <!-- ── APPS ── -->
+          <div class="resource-card" data-category="app">
+            <div class="resource-header">
+              <i class="fas fa-microphone resource-icon"></i>
+              <span class="resource-tag">App</span>
+            </div>
+            <h3 class="resource-title">ELSA Speak</h3>
+            <p class="resource-desc">AI sửa phát âm theo thời gian thực — phân tích chính xác từng âm bạn phát âm sai. Tốt nhất cho luyện giọng Mỹ chuẩn.</p>
+            <a href="https://elsaspeak.com/" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <div class="resource-card" data-category="app">
+            <div class="resource-header">
+              <i class="fas fa-layer-group resource-icon"></i>
+              <span class="resource-tag">App</span>
+            </div>
+            <h3 class="resource-title">Anki Flashcard</h3>
+            <p class="resource-desc">Học từ vựng bằng thuật toán Spaced Repetition — nhắc đúng lúc bạn sắp quên để khắc sâu vào trí nhớ dài hạn.</p>
+            <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <div class="resource-card" data-category="app">
+            <div class="resource-header">
+              <i class="fas fa-cards-blank resource-icon"></i>
+              <span class="resource-tag">App</span>
+            </div>
+            <h3 class="resource-title">Quizlet</h3>
+            <p class="resource-desc">Flashcard trực quan với nhiều bộ thẻ chuyên ngành có sẵn. Giao diện thân thiện, phù hợp cho người mới bắt đầu.</p>
+            <a href="https://quizlet.com/" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <!-- ── PODCASTS ── -->
+          <div class="resource-card" data-category="podcast">
+            <div class="resource-header">
+              <i class="fas fa-headphones-simple resource-icon"></i>
+              <span class="resource-tag">Podcast</span>
+            </div>
+            <h3 class="resource-title">BBC 6 Minute English</h3>
+            <p class="resource-desc">Mỗi tập đúng 6 phút về chủ đề thường nhật — chuẩn giọng Anh-Anh, lý tưởng để nghe khi di chuyển hoặc buổi sáng.</p>
+            <a href="https://www.bbc.co.uk/learningenglish/english/features/6-minute-english" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <div class="resource-card" data-category="podcast">
+            <div class="resource-header">
+              <i class="fas fa-business-time resource-icon"></i>
+              <span class="resource-tag">Podcast</span>
+            </div>
+            <h3 class="resource-title">HBR IdeaCast</h3>
+            <p class="resource-desc">Harvard Business Review thảo luận chiến lược kinh doanh và lãnh đạo. Từ vựng cấp cao, phù hợp Intermediate trở lên.</p>
+            <a href="https://hbr.org/2018/01/introducing-hbr-ideacast" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <div class="resource-card" data-category="podcast">
+            <div class="resource-header">
+              <i class="fas fa-ear-listen resource-icon"></i>
+              <span class="resource-tag">Podcast</span>
+            </div>
+            <h3 class="resource-title">All Ears English</h3>
+            <p class="resource-desc">Tiếng Anh giao tiếp tự nhiên và văn hóa công sở Mỹ — các host thảo luận cởi mở, dễ nghe cho mọi trình độ.</p>
+            <a href="https://www.allearsenglish.com/" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <div class="resource-card" data-category="podcast">
+            <div class="resource-header">
+              <i class="fas fa-chart-line resource-icon"></i>
+              <span class="resource-tag">Podcast</span>
+            </div>
+            <h3 class="resource-title">Masters of Scale</h3>
+            <p class="resource-desc">Reid Hoffman phỏng vấn các CEO hàng đầu thế giới. Vừa học tiếng Anh lãnh đạo, vừa tiếp thu tư duy startup đỉnh cao.</p>
+            <a href="https://mastersofscale.com/" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <!-- ── YOUTUBE ── -->
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">BBC Learning English</h3>
+            <p class="resource-desc">Kênh YouTube chính thức của BBC — video ngắn 3–10 phút về ngữ pháp, từ vựng, phát âm và văn hóa. Phù hợp mọi trình độ.</p>
+            <div class="yt-meta"><span class="yt-level">🟢 Mọi trình độ</span><span class="yt-skill">📖 Ngữ pháp · Từ vựng</span></div>
+            <a href="https://www.youtube.com/@bbclearningenglish" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">TED Talks</h3>
+            <p class="resource-desc">Hàng nghìn bài nói của chuyên gia thế giới — vừa rèn kỹ năng nghe, vừa học cách diễn đạt ý tưởng rõ ràng và thuyết phục.</p>
+            <div class="yt-meta"><span class="yt-level">🟡 Intermediate+</span><span class="yt-skill">👂 Nghe · Nói</span></div>
+            <a href="https://www.youtube.com/@TED" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">English with Lucy</h3>
+            <p class="resource-desc">Giáo viên người Anh dạy ngữ pháp, từ vựng và phát âm Anh-Anh chuẩn. Phong cách giải thích rõ ràng, dễ hiểu và hài hước.</p>
+            <div class="yt-meta"><span class="yt-level">🟢 Beginner–Intermediate</span><span class="yt-skill">📖 Ngữ pháp · Phát âm</span></div>
+            <a href="https://www.youtube.com/@EnglishwithLucy" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">Rachel's English</h3>
+            <p class="resource-desc">Chuyên gia phát âm tiếng Anh Mỹ — dạy vị trí miệng, âm kết nối (connected speech) và luyện giọng cực kỳ chi tiết và khoa học.</p>
+            <div class="yt-meta"><span class="yt-level">🟢 Mọi trình độ</span><span class="yt-skill">🗣️ Phát âm · Shadowing</span></div>
+            <a href="https://www.youtube.com/@rachelsenglish" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">Speak English with Vanessa</h3>
+            <p class="resource-desc">Giáo viên Mỹ dạy tiếng Anh tự nhiên, conversational English — đặc biệt tốt cho luyện phản xạ nói và giao tiếp hằng ngày.</p>
+            <div class="yt-meta"><span class="yt-level">🟢 Beginner–Advanced</span><span class="yt-skill">🗣️ Giao tiếp · Fluency</span></div>
+            <a href="https://www.youtube.com/@SpeakEnglishWithVanessa" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">EngVid</h3>
+            <p class="resource-desc">Nhiều giáo viên dạy các chủ đề khác nhau: ngữ pháp, IELTS, business English, từ vựng theo chủ đề. Kho bài bản nhất cho người tự học.</p>
+            <div class="yt-meta"><span class="yt-level">🟢 Mọi trình độ</span><span class="yt-skill">📖 Tổng hợp · IELTS</span></div>
+            <a href="https://www.youtube.com/@engvidEnglish" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">Business English Pod</h3>
+            <p class="resource-desc">100% tập trung vào tiếng Anh thương mại — email, meeting, thuyết trình, đàm phán. Phù hợp nhất cho người đi làm môi trường quốc tế.</p>
+            <div class="yt-meta"><span class="yt-level">🟡 Intermediate+</span><span class="yt-skill">💼 Business · Meetings</span></div>
+            <a href="https://www.youtube.com/@businessenglishpod" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">Learn English with TV Series</h3>
+            <p class="resource-desc">Học tiếng Anh qua các đoạn clip phim nổi tiếng — phân tích từng câu thoại, idioms và cách nói tự nhiên của người bản xứ.</p>
+            <div class="yt-meta"><span class="yt-level">🟡 Intermediate+</span><span class="yt-skill">👂 Nghe · Idioms</span></div>
+            <a href="https://www.youtube.com/@LearnEnglishWithTVSeries" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <div class="resource-card resource-card--yt" data-category="youtube">
+            <div class="resource-header">
+              <i class="fab fa-youtube resource-icon yt-icon"></i>
+              <span class="resource-tag yt-tag">YouTube</span>
+            </div>
+            <h3 class="resource-title">TED-Ed</h3>
+            <p class="resource-desc">Video hoạt hình giải thích các khái niệm phức tạp bằng tiếng Anh chuẩn mực, giọng đọc rõ ràng — luyện nghe và từ vựng học thuật.</p>
+            <div class="yt-meta"><span class="yt-level">🟡 Intermediate+</span><span class="yt-skill">👂 Nghe · Từ vựng học thuật</span></div>
+            <a href="https://www.youtube.com/@TEDed" target="_blank" rel="noopener" class="resource-link yt-link">Xem kênh <i class="fab fa-youtube"></i></a>
+          </div>
+
+          <!-- ── AI TOOLS ── -->
+          <div class="resource-card" data-category="ai">
+            <div class="resource-header">
+              <i class="fas fa-pen-nib resource-icon"></i>
+              <span class="resource-tag">Công cụ AI</span>
+            </div>
+            <h3 class="resource-title">Grammarly</h3>
+            <p class="resource-desc">Sửa ngữ pháp, chính tả và gợi ý cải thiện văn phong email ngay trong trình duyệt. Cài extension một lần, dùng mãi mãi.</p>
+            <a href="https://www.grammarly.com/" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <div class="resource-card" data-category="ai">
+            <div class="resource-header">
+              <i class="fas fa-robot resource-icon"></i>
+              <span class="resource-tag">Công cụ AI</span>
+            </div>
+            <h3 class="resource-title">Claude AI</h3>
+            <p class="resource-desc">Luyện hội thoại, hỏi giải thích ngữ pháp, nhờ sửa email hoặc viết bài tập tiếng Anh theo ngữ cảnh công việc thực tế của bạn.</p>
+            <a href="https://claude.ai" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+
+          <div class="resource-card" data-category="ai">
+            <div class="resource-header">
+              <i class="fas fa-language resource-icon"></i>
+              <span class="resource-tag">Công cụ AI</span>
+            </div>
+            <h3 class="resource-title">DeepL Write</h3>
+            <p class="resource-desc">Cải thiện văn phong câu tiếng Anh cho tự nhiên hơn — paste câu vào và xem AI đề xuất cách diễn đạt chuẩn của người bản xứ.</p>
+            <a href="https://www.deepl.com/write" target="_blank" rel="noopener" class="resource-link">Truy cập <i class="fas fa-external-link-alt"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Word of the Day Section -->
+    <section id="wotd" class="wotd-section">
+      <div class="container">
+        <div class="wotd-card">
+          <div class="wotd-left">
+            <span class="section-tag" style="display:block;margin-bottom:8px;">Từ Vựng Hôm Nay</span>
+            <div class="wotd-word" id="wotd-word">Proactive</div>
+            <div class="wotd-phonetic" id="wotd-phonetic">/proʊˈæktɪv/</div>
+            <div class="wotd-pos" id="wotd-pos">adjective</div>
+          </div>
+          <div class="wotd-divider"></div>
+          <div class="wotd-right">
+            <div class="wotd-meaning" id="wotd-meaning">Chủ động; hành động trước khi vấn đề xảy ra thay vì chờ đợi và phản ứng</div>
+            <div class="wotd-example" id="wotd-example">
+              <span class="wotd-ex-label">Ví dụ:</span>
+              <em id="wotd-ex-text">"We need a more <strong>proactive</strong> approach to handling customer complaints."</em>
+            </div>
+            <button class="wotd-next-btn" id="wotd-next">Từ tiếp theo <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily Habit Tracker Section -->
+    <section id="habit-tracker">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Thực Hành Hôm Nay</span>
+          <h2 class="section-title">Checklist Hằng Ngày</h2>
+          <p class="section-desc">
+            Đánh dấu từng thói quen khi hoàn thành. Nhất quán mỗi ngày — dù nhỏ — tạo ra sự thay đổi lớn.
+          </p>
+        </div>
+
+        <div class="tracker-layout">
+          <!-- Streak & Progress -->
+          <div class="tracker-sidebar">
+            <div class="streak-card">
+              <div class="streak-fire">🔥</div>
+              <div class="streak-number" id="streak-count">0</div>
+              <div class="streak-label">Ngày liên tiếp</div>
+              <div class="streak-sub">Chuỗi hiện tại</div>
+            </div>
+            <div class="ring-card">
+              <div class="ring-wrap">
+                <svg class="progress-ring" viewBox="0 0 120 120">
+                  <circle class="ring-bg" cx="60" cy="60" r="50"></circle>
+                  <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="50"
+                    stroke-dasharray="314"
+                    stroke-dashoffset="314"></circle>
+                </svg>
+                <div class="ring-text">
+                  <span class="ring-pct" id="ring-pct">0%</span>
+                  <span class="ring-done-label">hoàn thành</span>
+                </div>
+              </div>
+              <div class="ring-count" id="ring-count">0 / 6 mục tiêu</div>
+            </div>
+          </div>
+
+          <!-- Habit List -->
+          <div class="habit-list-wrap">
+            <div class="habit-list" id="habit-list">
+              <div class="habit-item" data-id="0">
+                <button class="habit-check-btn" aria-label="Toggle habit">
+                  <i class="fas fa-check"></i>
+                </button>
+                <div class="habit-body">
+                  <span class="habit-name">Ôn tập Flashcard từ vựng</span>
+                  <span class="habit-detail">10–15 thẻ trên Anki / Quizlet</span>
+                </div>
+                <span class="habit-duration">5 phút</span>
+              </div>
+              <div class="habit-item" data-id="1">
+                <button class="habit-check-btn" aria-label="Toggle habit">
+                  <i class="fas fa-check"></i>
+                </button>
+                <div class="habit-body">
+                  <span class="habit-name">Nghe Podcast tiếng Anh</span>
+                  <span class="habit-detail">BBC 6 Minute / Ted Talks Daily</span>
+                </div>
+                <span class="habit-duration">10 phút</span>
+              </div>
+              <div class="habit-item" data-id="2">
+                <button class="habit-check-btn" aria-label="Toggle habit">
+                  <i class="fas fa-check"></i>
+                </button>
+                <div class="habit-body">
+                  <span class="habit-name">Đọc bài báo / tài liệu chuyên ngành</span>
+                  <span class="habit-detail">Ghi lại 3 cụm từ hay nhất</span>
+                </div>
+                <span class="habit-duration">10 phút</span>
+              </div>
+              <div class="habit-item" data-id="3">
+                <button class="habit-check-btn" aria-label="Toggle habit">
+                  <i class="fas fa-check"></i>
+                </button>
+                <div class="habit-body">
+                  <span class="habit-name">Luyện Shadowing</span>
+                  <span class="habit-detail">Nhại theo video / podcast yêu thích</span>
+                </div>
+                <span class="habit-duration">5 phút</span>
+              </div>
+              <div class="habit-item" data-id="4">
+                <button class="habit-check-btn" aria-label="Toggle habit">
+                  <i class="fas fa-check"></i>
+                </button>
+                <div class="habit-body">
+                  <span class="habit-name">Viết nhật ký / email luyện tập</span>
+                  <span class="habit-detail">3–5 câu tiếng Anh về ngày làm việc</span>
+                </div>
+                <span class="habit-duration">5 phút</span>
+              </div>
+              <div class="habit-item" data-id="5">
+                <button class="habit-check-btn" aria-label="Toggle habit">
+                  <i class="fas fa-check"></i>
+                </button>
+                <div class="habit-body">
+                  <span class="habit-name">Cập nhật từ mới vào Flashcard</span>
+                  <span class="habit-detail">Chỉ thêm từ thực sự cần dùng</span>
+                </div>
+                <span class="habit-duration">3 phút</span>
+              </div>
+            </div>
+            <div class="tracker-actions">
+              <div class="tracker-date" id="tracker-date"></div>
+              <button class="reset-btn" id="reset-btn">
+                <i class="fas fa-redo-alt"></i> Reset ngày mới
+              </button>
+            </div>
+            <div class="completed-banner" id="completed-banner">
+              <span>🎉</span> Xuất sắc! Bạn hoàn thành tất cả mục tiêu hôm nay! Streak +1 🔥
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ accordion Section -->
+    <section id="hoi-dap">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Giải Đáp Thắc Mắc</span>
+          <h2 class="section-title">Câu Hỏi Thường Gặp</h2>
+          <p class="section-desc">
+            Lời khuyên và lời giải từ chuyên gia giúp bạn giải quyết những rào cản tâm lý phổ biến nhất khi học tiếng Anh.
+          </p>
+        </div>
+
+        <div class="faq-accordion">
+          <!-- Item 1 -->
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span>Tôi cực kỳ bận rộn, không có cả 15 phút cố định thì học thế nào?</span>
+              <i class="fas fa-chevron-down faq-icon-toggle"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Hãy áp dụng triệt để phương pháp Micro-learning. Bạn không cần ngồi vào bàn học. Bạn chỉ cần nghe podcast lúc rửa bát, lướt 5 từ vựng khi đợi đồng nghiệp đi ăn trưa. Sự tích lũy ngẫu nhiên này có sức mạnh vô cùng lớn mà không gây áp lực thời gian.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span>Tôi sợ nói sai, sợ người khác cười nên không dám giao tiếp?</span>
+              <i class="fas fa-chevron-down faq-icon-toggle"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Trong giao tiếp công việc chuyên nghiệp, sự chính xác của thông tin quan trọng hơn sự hoàn hảo của ngữ pháp. Người bản xứ hay đối tác đều chỉ quan tâm bạn có truyền tải được ý kiến hay không. Hãy tập trung luyện nói một mình bằng kỹ thuật Shadowing trước để tăng tự tin, sau đó áp dụng thực tế.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span>Tại sao tôi học từ vựng hôm trước hôm sau lại quên ngay?</span>
+              <i class="fas fa-chevron-down faq-icon-toggle"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Đây là hiện tượng sinh lý bình thường của não bộ (Đường cong lãng quên). Để khắc phục, bạn bắt buộc phải dùng công cụ ôn tập lặp lại ngắt quãng (Spaced Repetition) như Anki. Hệ thống sẽ tự tính toán thời điểm vàng bạn chuẩn bị quên từ đó để bắt bạn ôn lại, giúp khắc sâu vào trí nhớ dài hạn.
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span>Tôi bị mất gốc hoàn toàn, bắt đầu từ đâu là hiệu quả nhất?</span>
+              <i class="fas fa-chevron-down faq-icon-toggle"></i>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Hãy bắt đầu với phát âm trước (Phát âm chuẩn giúp nghe tốt hơn) bằng cách xem các hướng dẫn phát âm IPA miễn phí trên Youtube hoặc dùng Elsa Speak. Tiếp theo, xây dựng vốn từ vựng cơ bản bằng Flashcards và nghe các podcast ở tốc độ chậm. Đừng vội vã học ngữ pháp phức tạp.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Motivational Quote Section -->
+    <section id="motivation" class="quote-section">
+      <div class="container">
+        <div class="quote-carousel">
+          <div class="quote-icon-big">"</div>
+          <div class="quote-text" id="quote-text">
+            Đừng đợi đủ thời gian mới bắt đầu. Hãy bắt đầu với thời gian bạn đang có.
+          </div>
+          <div class="quote-author" id="quote-author">— Zen English</div>
+          <div class="quote-nav">
+            <button class="q-prev" id="q-prev" aria-label="Previous quote"><i class="fas fa-chevron-left"></i></button>
+            <div class="q-dots" id="q-dots"></div>
+            <button class="q-next" id="q-next" aria-label="Next quote"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="cta-final" class="cta-final-section">
+      <div class="container">
+        <div class="cta-final-card">
+          <div class="cta-final-glow"></div>
+          <span class="section-tag">Bắt Đầu Ngay Hôm Nay</span>
+          <h2 class="cta-final-title">Chỉ cần <span class="text-gradient">15 phút</span> đầu tiên</h2>
+          <p class="cta-final-desc">Mỗi hành trình ngàn dặm bắt đầu bằng một bước chân. Bắt đầu với checklist hằng ngày của bạn ngay hôm nay.</p>
+          <div class="cta-final-btns">
+            <a href="#habit-tracker" class="btn-primary"><i class="fas fa-tasks"></i> Mở Checklist Hôm Nay</a>
+            <a href="#lo-trinh" class="btn-secondary">Xem lộ trình chi tiết <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <i class="fas fa-wind"></i>
+        <span>Zen English</span>
+      </div>
+      <p class="footer-text">Thiết kế tối giản • Hiện đại • Chuyên nghiệp dành cho người đi làm</p>
+      <p class="footer-copyright">&copy; 2026 Zen English. Bảo lưu mọi quyền.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
