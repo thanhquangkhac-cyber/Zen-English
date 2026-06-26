@@ -536,4 +536,33 @@ document.addEventListener('DOMContentLoaded', () => {
   renderQuoteDots();
   quoteTimer = setInterval(() => goQuote(currentQuote + 1), 6000);
 
+  // ── Section 12: Everyday Conversations — Chapter Tabs ──
+  const gtTabBtns = document.querySelectorAll('.gt-tab-btn');
+  const gtPanes = document.querySelectorAll('.gt-pane');
+  gtTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-gt');
+      gtTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      gtPanes.forEach(p => p.classList.toggle('active', p.getAttribute('data-gt') === target));
+    });
+  });
+
+  // ── Section 13: Everyday Conversations — Dialogue Accordion ──
+  document.querySelectorAll('.gt-acc-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const body = item.querySelector('.gt-acc-body');
+      const isOpen = item.classList.contains('active');
+      document.querySelectorAll('.gt-acc-item').forEach(i => {
+        i.classList.remove('active');
+        i.querySelector('.gt-acc-body').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('active');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+
 });
