@@ -565,4 +565,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ── Section 14: Listening Practice — Category Filter ──
+  const lnTabBtns = document.querySelectorAll('.ln-tab-btn');
+  const lnCards = document.querySelectorAll('.ln-card');
+  lnTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-ln');
+      lnTabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      lnCards.forEach(card => {
+        const match = cat === 'all' || card.getAttribute('data-ln') === cat;
+        card.classList.toggle('hidden', !match);
+      });
+    });
+  });
+
 });
