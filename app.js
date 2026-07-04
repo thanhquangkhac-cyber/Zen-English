@@ -350,6 +350,15 @@ document.addEventListener('DOMContentLoaded', () => {
     wotdNextBtn.addEventListener('click', () => {
       wotdIdx = (wotdIdx + 1) % words.length;
       renderWotd(wotdIdx);
+      addXP(2);
+    });
+  }
+
+  const wotdSaveBtn = document.getElementById('wotd-save-btn');
+  if (wotdSaveBtn) {
+    wotdSaveBtn.addEventListener('click', () => {
+      const w = words[wotdIdx];
+      addMistake({ word: w.word, meaning: w.meaning, phonetic: w.phonetic });
     });
   }
 
@@ -373,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function loadStreak() {
-    try { return JSON.parse(localStorage.getItem(STREAK_KEY)) || { count: 0, lastDate: '' }; } catch { return { count: 0, lastDate: '' }; }
+    try { return JSON.parse(localStorage.getItem(STREAK_KEY)) || { count: 0, lastDate: '', freezes: 0, lastFreezeWeek: '' }; } catch { return { count: 0, lastDate: '', freezes: 0, lastFreezeWeek: '' }; }
   }
 
   function saveStreak(data) {
@@ -397,6 +406,153 @@ document.addEventListener('DOMContentLoaded', () => {
     const streak = loadStreak();
     const el = document.getElementById('streak-count');
     if (el) el.textContent = streak.count;
+    const freezeEl = document.getElementById('freeze-count');
+    if (freezeEl) freezeEl.textContent = streak.freezes || 0;
+  }
+
+  // ── Streak Freeze: refills 1 lá chắn/tuần (tối đa 2), tự bảo vệ streak khi lỡ 1 ngày ──
+  function getWeekKey(date) {
+    const d = new Date(date);
+    const day = (d.getDay() + 6) % 7; // Monday = 0
+    d.setDate(d.getDate() - day);
+    return d.toISOString().slice(0, 10);
+  }
+
+  function showToast(message) {
+    let toast = document.getElementById('zen-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'zen-toast';
+      toast.className = 'zen-toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => toast.classList.remove('show'), 3500);
+  }
+
+  function maintainStreakFreeze() {
+    const streak = loadStreak();
+    if (typeof streak.freezes !== 'number') streak.freezes = 0;
+
+    const weekKey = getWeekKey(new Date());
+    if (streak.lastFreezeWeek !== weekKey) {
+      streak.freezes = Math.min(2, streak.freezes + 1);
+      streak.lastFreezeWeek = weekKey;
+    }
+
+    const today = getTodayStr();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yStr = yesterday.toISOString().slice(0, 10);
+
+    if (streak.count > 0 && streak.lastDate !== today && streak.lastDate !== yStr) {
+      if (streak.freezes > 0) {
+        streak.freezes -= 1;
+        streak.lastDate = yStr; // giữ nguyên chuỗi, coi như hôm qua đã được bảo vệ
+        showToast('🛡️ Đã dùng 1 lá chắn để bảo vệ chuỗi của bạn!');
+      } else {
+        streak.count = 0;
+      }
+    }
+
+    saveStreak(streak);
+  }
+
+  // ============================================================
+  // Micro-XP: cộng điểm cho từng hành động nhỏ, không chỉ theo ngày
+  // ============================================================
+  const XP_KEY = 'zen-xp';
+  const XP_PER_LEVEL = 100;
+
+  function loadXP() {
+    try { return JSON.parse(localStorage.getItem(XP_KEY)) || { xp: 0 }; } catch { return { xp: 0 }; }
+  }
+
+  function saveXP(data) {
+    localStorage.setItem(XP_KEY, JSON.stringify(data));
+  }
+
+  function renderXP() {
+    const data = loadXP();
+    const level = Math.floor(data.xp / XP_PER_LEVEL) + 1;
+    const inLevel = data.xp % XP_PER_LEVEL;
+    const levelEl = document.getElementById('xp-level');
+    const valueEl = document.getElementById('xp-value');
+    const fillEl  = document.getElementById('xp-bar-fill');
+    if (levelEl) levelEl.textContent = `Cấp ${level}`;
+    if (valueEl) valueEl.textContent = `${inLevel} / ${XP_PER_LEVEL} XP`;
+    if (fillEl) fillEl.style.width = `${(inLevel / XP_PER_LEVEL) * 100}%`;
+  }
+
+  function addXP(amount) {
+    const data = loadXP();
+    const prevLevel = Math.floor(data.xp / XP_PER_LEVEL);
+    data.xp = Math.max(0, data.xp + amount);
+    saveXP(data);
+    renderXP();
+    const newLevel = Math.floor(data.xp / XP_PER_LEVEL);
+    if (newLevel > prevLevel) showToast(`🎉 Lên Cấp ${newLevel + 1}! Tiếp tục phát huy nhé.`);
+  }
+
+  // ============================================================
+  // Sổ tay lỗi cá nhân hoá: lưu từ cần ôn lại xuyên suốt các section
+  // ============================================================
+  const MISTAKES_KEY = 'zen-mistakes';
+
+  function loadMistakes() {
+    try { return JSON.parse(localStorage.getItem(MISTAKES_KEY)) || []; } catch { return []; }
+  }
+
+  function saveMistakes(list) {
+    localStorage.setItem(MISTAKES_KEY, JSON.stringify(list));
+  }
+
+  function renderMistakes() {
+    const list = loadMistakes();
+    const wrap = document.getElementById('review-list');
+    if (!wrap) return;
+
+    if (list.length === 0) {
+      wrap.innerHTML = '<div class="review-empty" id="review-empty">Chưa có từ nào được lưu. Bấm "Lưu ôn lại" ở phần Từ Vựng Hôm Nay để thêm.</div>';
+      return;
+    }
+
+    wrap.innerHTML = list.map(item => `
+      <div class="review-item" data-word="${item.word}">
+        <div class="review-item-text">
+          <span class="review-item-word">${item.word}</span>
+          <span class="review-item-meaning">${item.meaning}</span>
+        </div>
+        <button class="review-item-remove" aria-label="Xóa từ khỏi sổ tay">&times;</button>
+      </div>
+    `).join('');
+
+    wrap.querySelectorAll('.review-item-remove').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const word = btn.closest('.review-item').getAttribute('data-word');
+        removeMistake(word);
+      });
+    });
+  }
+
+  function addMistake(item) {
+    const list = loadMistakes();
+    if (list.some(i => i.word === item.word)) {
+      showToast(`"${item.word}" đã có trong sổ tay rồi.`);
+      return;
+    }
+    list.unshift({ ...item, addedDate: getTodayStr() });
+    saveMistakes(list.slice(0, 20));
+    renderMistakes();
+    addXP(3);
+    showToast(`📒 Đã lưu "${item.word}" vào sổ tay ôn lại.`);
+  }
+
+  function removeMistake(word) {
+    saveMistakes(loadMistakes().filter(i => i.word !== word));
+    renderMistakes();
   }
 
   function updateProgressRing(done, total) {
@@ -453,6 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!tracker[today]) tracker[today] = {};
         tracker[today][id] = !tracker[today][id];
         saveTracker(tracker);
+        addXP(tracker[today][id] ? 5 : -5);
         const done = renderHabits();
         updateStreakIfAllDone(done, today);
       });
@@ -469,8 +626,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  maintainStreakFreeze();
   renderHabits();
   initTrackerEvents();
+  renderXP();
+  renderMistakes();
 
   // Also update the hero visual card streak display
   const heroStreakEl = document.querySelector('.stat-row:nth-child(2) .stat-value');
