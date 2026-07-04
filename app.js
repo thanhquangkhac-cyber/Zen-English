@@ -779,7 +779,15 @@ document.addEventListener('DOMContentLoaded', () => {
         'Could you speak more slowly, please?',
         'I have a meeting at 10 AM.',
       ],
-      writing: { prompt: 'Viết 3-5 câu tiếng Anh mô tả công việc bạn đã làm hôm nay.', minWords: 15 },
+      writing: {
+        prompt: 'Viết 3-5 câu tiếng Anh mô tả công việc bạn đã làm hôm nay.',
+        minWords: 15,
+        phrases: ['I checked my email', 'I had a meeting with', 'I talked to my colleague about', 'My schedule today was'],
+        sentenceBuilder: [
+          { scrambled: 'I / (check) / my email / every morning', answer: 'I check my email every morning' },
+          { scrambled: 'She / (have) / a meeting / at 10 AM', answer: 'She has a meeting at 10 AM' },
+        ],
+      },
     },
     intermediate: {
       badge: 'B1 - B2',
@@ -808,7 +816,15 @@ document.addEventListener('DOMContentLoaded', () => {
         'Let\'s prioritize the client-facing tasks first.',
         'I\'d like to negotiate a better timeline.',
       ],
-      writing: { prompt: 'Viết một email ngắn (tiếng Anh) xin gia hạn deadline cho quản lý của bạn, giải thích lý do ngắn gọn.', minWords: 30 },
+      writing: {
+        prompt: 'Viết một email ngắn (tiếng Anh) xin gia hạn deadline cho quản lý của bạn, giải thích lý do ngắn gọn.',
+        minWords: 30,
+        phrases: ['I would like to request', 'Could we extend the deadline to', 'Thank you for your feedback on', 'I need to prioritize'],
+        sentenceBuilder: [
+          { scrambled: 'He / (give) / feedback / on the proposal / yesterday', answer: 'He gave feedback on the proposal yesterday' },
+          { scrambled: 'We / need / to / (prioritize) / this task', answer: 'We need to prioritize this task' },
+        ],
+      },
     },
     advanced: {
       badge: 'C1+',
@@ -837,7 +853,15 @@ document.addEventListener('DOMContentLoaded', () => {
         'I\'ll escalate this to senior leadership today.',
         'All key stakeholders must sign off before we proceed.',
       ],
-      writing: { prompt: 'Viết một đoạn văn thuyết phục (tiếng Anh) đề xuất một sáng kiến hợp tác giữa hai phòng ban.', minWords: 50 },
+      writing: {
+        prompt: 'Viết một đoạn văn thuyết phục (tiếng Anh) đề xuất một sáng kiến hợp tác giữa hai phòng ban.',
+        minWords: 50,
+        phrases: ['In order to leverage', 'This creates strong synergy between', 'I would like to escalate', 'All key stakeholders should'],
+        sentenceBuilder: [
+          { scrambled: 'The company / (leverage) / its resources / to grow faster', answer: 'The company leverages its resources to grow faster' },
+          { scrambled: 'They / (escalate) / the issue / to management / last week', answer: 'They escalated the issue to management last week' },
+        ],
+      },
     },
   };
 
@@ -864,9 +888,25 @@ document.addEventListener('DOMContentLoaded', () => {
       vocabAnswers: new Array(data.vocabQuiz.length).fill(null),
       readingAnswers: new Array(data.reading.quiz.length).fill(null),
       listeningTicks: new Array(data.listening.length).fill(false),
+      listeningScores: new Array(data.listening.length).fill(null),
+      sentenceAnswers: new Array(data.writing.sentenceBuilder.length).fill(null),
       writingText: '',
       xpAwarded: false,
     };
+  }
+
+  // Word-overlap similarity: % of target words actually present in what was recognized/typed
+  function wordOverlapScore(target, attempt) {
+    const norm = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+    const targetWords = norm(target);
+    const attemptWords = new Set(norm(attempt));
+    if (targetWords.length === 0) return 0;
+    const matched = targetWords.filter(w => attemptWords.has(w)).length;
+    return Math.round((matched / targetWords.length) * 100);
+  }
+
+  function normalizeSentence(s) {
+    return s.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim();
   }
 
   function speak(text) {
@@ -966,28 +1006,50 @@ document.addEventListener('DOMContentLoaded', () => {
     bindQuizEvents('reading');
   }
 
+  const SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const PASS_THRESHOLD = 50;
+
   function renderListeningStep() {
-    const { data, listeningTicks } = lessonState;
-    const items = data.listening.map((sentence, i) => `
-      <div class="lesson-listen-item">
-        <button class="lesson-listen-play" data-idx="${i}" aria-label="Nghe câu này"><i class="fas fa-volume-up"></i></button>
-        <span class="lesson-listen-text">"${sentence}"</span>
-        <label class="lesson-listen-check">
-          <input type="checkbox" data-idx="${i}" class="lesson-listen-tick" ${listeningTicks[i] ? 'checked' : ''}>
-          Đã luyện nói
-        </label>
-      </div>
-    `).join('');
+    const { data, listeningTicks, listeningScores } = lessonState;
+    const micSupported = !!SpeechRecognitionCtor;
+
+    const items = data.listening.map((sentence, i) => {
+      const score = listeningScores[i];
+      let resultHtml = '';
+      if (score !== null) {
+        const passed = score >= PASS_THRESHOLD;
+        resultHtml = `<div class="lesson-listen-result ${passed ? 'pass' : 'fail'}">${score}% khớp — ${passed ? 'Đạt ✅' : 'Chưa đạt, thử lại nhé'}</div>`;
+      }
+      const micControl = micSupported
+        ? `<button class="lesson-listen-mic" data-idx="${i}" aria-label="Ghi âm để chấm điểm nói"><i class="fas fa-microphone"></i></button>`
+        : `<label class="lesson-listen-check">
+             <input type="checkbox" data-idx="${i}" class="lesson-listen-tick" ${listeningTicks[i] ? 'checked' : ''}>
+             Đã luyện nói
+           </label>`;
+      return `
+        <div class="lesson-listen-item">
+          <button class="lesson-listen-play" data-idx="${i}" aria-label="Nghe câu này"><i class="fas fa-volume-up"></i></button>
+          <div class="lesson-listen-main">
+            <span class="lesson-listen-text">"${sentence}"</span>
+            ${resultHtml}
+          </div>
+          ${micControl}
+        </div>
+      `;
+    }).join('');
 
     lessonBody.innerHTML = `
       <h3>Nghe &amp; Nói</h3>
-      <p class="lesson-body-desc">Bấm 🔊 để nghe từng câu (phát âm bằng giọng máy), nhại lại (shadowing) rồi tick "Đã luyện nói".</p>
+      <p class="lesson-body-desc">${micSupported
+        ? 'Bấm 🔊 để nghe câu mẫu, sau đó bấm 🎤 và nói theo. App sẽ chấm % khớp — đạt từ 50% trở lên mới tính là hoàn thành.'
+        : 'Trình duyệt này không hỗ trợ ghi âm chấm điểm. Bấm 🔊 để nghe rồi tự luyện nói và tick "Đã luyện nói".'}</p>
       ${items}
     `;
 
     lessonBody.querySelectorAll('.lesson-listen-play').forEach(btn => {
       btn.addEventListener('click', () => speak(data.listening[parseInt(btn.getAttribute('data-idx'), 10)]));
     });
+
     lessonBody.querySelectorAll('.lesson-listen-tick').forEach(chk => {
       chk.addEventListener('change', () => {
         const idx = parseInt(chk.getAttribute('data-idx'), 10);
@@ -997,23 +1059,97 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!chk.checked && wasTicked) addXP(-2);
       });
     });
+
+    lessonBody.querySelectorAll('.lesson-listen-mic').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-idx'), 10);
+        recordAndGrade(idx, data.listening[idx], btn);
+      });
+    });
+  }
+
+  function recordAndGrade(idx, targetSentence, btn) {
+    if (!SpeechRecognitionCtor) return;
+    const recognition = new SpeechRecognitionCtor();
+    recognition.lang = 'en-US';
+    recognition.maxAlternatives = 1;
+
+    btn.classList.add('recording');
+    btn.disabled = true;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      const score = wordOverlapScore(targetSentence, transcript);
+      const wasTicked = lessonState.listeningTicks[idx];
+      lessonState.listeningScores[idx] = score;
+      lessonState.listeningTicks[idx] = score >= PASS_THRESHOLD;
+      if (lessonState.listeningTicks[idx] && !wasTicked) addXP(2);
+      if (!lessonState.listeningTicks[idx] && wasTicked) addXP(-2);
+      showToast(score >= PASS_THRESHOLD ? `🎤 Nghe được: "${transcript}" — ${score}% khớp, đạt!` : `🎤 Nghe được: "${transcript}" — ${score}% khớp, thử lại nhé.`);
+      renderListeningStep();
+    };
+
+    recognition.onerror = () => {
+      btn.classList.remove('recording');
+      btn.disabled = false;
+      showToast('Không ghi âm được. Kiểm tra quyền truy cập microphone và thử lại.');
+    };
+
+    recognition.onend = () => {
+      btn.classList.remove('recording');
+      btn.disabled = false;
+    };
+
+    recognition.start();
   }
 
   function renderWritingStep() {
-    const { data, writingText } = lessonState;
+    const { data, writingText, sentenceAnswers } = lessonState;
+    const w = data.writing;
+
+    const phraseChips = w.phrases.map(p => `<button type="button" class="lesson-phrase-chip" data-phrase="${p.replace(/"/g, '&quot;')}">${p}</button>`).join('');
+
+    const sentenceItems = w.sentenceBuilder.map((item, i) => {
+      const answered = sentenceAnswers[i];
+      const isCorrect = answered !== null && answered.correct;
+      let stateHtml = '';
+      if (answered !== null) {
+        stateHtml = isCorrect
+          ? `<div class="lesson-sb-feedback correct">✅ Chính xác!</div>`
+          : `<div class="lesson-sb-feedback wrong">❌ Chưa đúng. Đáp án đúng: <strong>${item.answer}</strong></div>`;
+      }
+      return `
+        <div class="lesson-sb-item">
+          <div class="lesson-sb-scrambled">${item.scrambled}</div>
+          <div class="lesson-sb-input-row">
+            <input type="text" class="lesson-sb-input" data-idx="${i}" placeholder="Sắp xếp và chia đúng thì..." value="${answered ? answered.text.replace(/"/g, '&quot;') : ''}" ${answered !== null ? 'disabled' : ''}>
+            <button type="button" class="lesson-sb-check" data-idx="${i}" ${answered !== null ? 'disabled' : ''}>Kiểm Tra</button>
+          </div>
+          ${stateHtml}
+        </div>
+      `;
+    }).join('');
+
     lessonBody.innerHTML = `
       <h3>Luyện Viết</h3>
-      <div class="lesson-writing-prompt">${data.writing.prompt}</div>
+
+      <p class="lesson-body-desc">Trước tiên, sắp xếp lại các cụm từ sau (có từ trong ngoặc cần chia đúng thì) thành câu hoàn chỉnh:</p>
+      ${sentenceItems}
+
+      <div class="lesson-writing-prompt">${w.prompt}</div>
+      <div class="lesson-body-desc">Cụm từ tham khảo — bấm để chèn vào bài viết:</div>
+      <div class="lesson-phrase-chips">${phraseChips}</div>
       <textarea class="lesson-writing-textarea" id="lesson-writing-textarea" placeholder="Viết câu trả lời của bạn ở đây...">${writingText}</textarea>
       <div class="lesson-writing-count" id="lesson-writing-count"></div>
     `;
+
     const textarea = document.getElementById('lesson-writing-textarea');
     const countEl = document.getElementById('lesson-writing-count');
 
     function updateCount() {
       const words = textarea.value.trim().split(/\s+/).filter(Boolean).length;
-      const ok = words >= data.writing.minWords;
-      countEl.textContent = `${words} / ${data.writing.minWords} từ tối thiểu`;
+      const ok = words >= w.minWords;
+      countEl.textContent = `${words} / ${w.minWords} từ tối thiểu`;
       countEl.classList.toggle('ok', ok);
     }
 
@@ -1022,20 +1158,46 @@ document.addEventListener('DOMContentLoaded', () => {
       updateCount();
     });
     updateCount();
+
+    lessonBody.querySelectorAll('.lesson-phrase-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const phrase = chip.getAttribute('data-phrase');
+        textarea.value = textarea.value.trim().length ? `${textarea.value.trim()} ${phrase} ` : `${phrase} `;
+        lessonState.writingText = textarea.value;
+        updateCount();
+        textarea.focus();
+      });
+    });
+
+    lessonBody.querySelectorAll('.lesson-sb-check').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.getAttribute('data-idx'), 10);
+        if (sentenceAnswers[i] !== null) return;
+        const input = lessonBody.querySelector(`.lesson-sb-input[data-idx="${i}"]`);
+        const text = input.value;
+        const correct = normalizeSentence(text) === normalizeSentence(w.sentenceBuilder[i].answer);
+        sentenceAnswers[i] = { text, correct };
+        addXP(correct ? 4 : 1);
+        renderWritingStep();
+      });
+    });
   }
 
   function renderResultStep() {
-    const { data, vocabAnswers, readingAnswers, listeningTicks, writingText } = lessonState;
+    const { data, vocabAnswers, readingAnswers, listeningTicks, writingText, sentenceAnswers } = lessonState;
     const vocabCorrect = vocabAnswers.filter((a, i) => a === data.vocabQuiz[i].correct).length;
     const readingCorrect = readingAnswers.filter((a, i) => a === data.reading.quiz[i].correct).length;
     const listenDone = listeningTicks.filter(Boolean).length;
     const wordCount = writingText.trim().split(/\s+/).filter(Boolean).length;
     const writingPass = wordCount >= data.writing.minWords;
+    const sentenceCorrect = sentenceAnswers.filter(a => a && a.correct).length;
 
     const vocabPct = Math.round((vocabCorrect / data.vocabQuiz.length) * 100);
     const readingPct = Math.round((readingCorrect / data.reading.quiz.length) * 100);
     const listenPct = Math.round((listenDone / data.listening.length) * 100);
-    const overallPct = Math.round((vocabPct + readingPct + listenPct + (writingPass ? 100 : wordCount > 0 ? 50 : 0)) / 4);
+    const sentencePct = Math.round((sentenceCorrect / data.writing.sentenceBuilder.length) * 100);
+    const writingPct = Math.round((sentencePct + (writingPass ? 100 : wordCount > 0 ? 50 : 0)) / 2);
+    const overallPct = Math.round((vocabPct + readingPct + listenPct + writingPct) / 4);
 
     function tag(pct) {
       if (pct >= 80) return '<span class="lesson-result-tag good">Tốt</span>';
@@ -1053,8 +1215,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <tbody>
           <tr><td>🔤 Từ Vựng</td><td>${vocabCorrect}/${data.vocabQuiz.length} đúng</td><td>${tag(vocabPct)}</td></tr>
           <tr><td>📖 Đọc Hiểu</td><td>${readingCorrect}/${data.reading.quiz.length} đúng</td><td>${tag(readingPct)}</td></tr>
-          <tr><td>🎧 Nghe &amp; Nói</td><td>${listenDone}/${data.listening.length} hoàn thành</td><td>${tag(listenPct)}</td></tr>
-          <tr><td>✍️ Viết</td><td>${wordCount} từ</td><td>${writingPass ? tag(100) : tag(wordCount > 0 ? 50 : 0)}</td></tr>
+          <tr><td>🎧 Nghe &amp; Nói</td><td>${listenDone}/${data.listening.length} đạt (≥50%)</td><td>${tag(listenPct)}</td></tr>
+          <tr><td>✍️ Viết</td><td>${sentenceCorrect}/${data.writing.sentenceBuilder.length} câu đúng, ${wordCount} từ</td><td>${tag(writingPct)}</td></tr>
         </tbody>
       </table>
     `;

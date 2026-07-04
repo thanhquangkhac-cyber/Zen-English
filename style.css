@@ -3419,6 +3419,126 @@ button, a, [role="button"] {
   white-space: nowrap;
 }
 
+.lesson-listen-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lesson-listen-result {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.lesson-listen-result.pass { color: #10b981; }
+.lesson-listen-result.fail { color: #ef4444; }
+
+.lesson-listen-mic {
+  background: var(--bg-tertiary);
+  border: none;
+  color: #ef4444;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.lesson-listen-mic:hover:not(:disabled) { background: #ef4444; color: #fff; }
+
+.lesson-listen-mic.recording {
+  background: #ef4444;
+  color: #fff;
+  animation: lesson-mic-pulse 1s ease-in-out infinite;
+}
+
+@keyframes lesson-mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+
+/* Sentence builder (fill-in / rearrange exercise) */
+.lesson-sb-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.lesson-sb-scrambled {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.lesson-sb-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.lesson-sb-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 10px 12px;
+}
+
+.lesson-sb-input:focus { outline: none; border-color: var(--accent-1); }
+.lesson-sb-input:disabled { opacity: 0.8; }
+
+.lesson-sb-check {
+  background: var(--accent-gradient);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 0 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.lesson-sb-check:disabled { opacity: 0.5; cursor: default; }
+
+.lesson-sb-feedback {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.lesson-sb-feedback.correct { color: #10b981; }
+.lesson-sb-feedback.wrong { color: #ef4444; font-weight: 500; }
+
+.lesson-phrase-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.lesson-phrase-chip {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  padding: 6px 12px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.lesson-phrase-chip:hover { border-color: var(--accent-1); color: var(--accent-1); }
+
 /* Writing */
 .lesson-writing-prompt {
   background: var(--bg-secondary);
