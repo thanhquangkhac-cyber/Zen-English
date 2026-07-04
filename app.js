@@ -125,10 +125,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Profile card selection
   const profileCards = document.querySelectorAll('.profile-card');
   const profilePanels = document.querySelectorAll('.profile-panel');
+  const LEVEL_KEY = 'zen-level';
+
+  // Restore last chosen level (used to personalize the daily lesson too)
+  const savedLevel = localStorage.getItem(LEVEL_KEY);
+  if (savedLevel) {
+    profileCards.forEach(c => c.classList.toggle('active', c.getAttribute('data-profile') === savedLevel));
+    profilePanels.forEach(p => p.classList.toggle('active', p.id === `panel-${savedLevel}`));
+  }
 
   profileCards.forEach(card => {
     card.addEventListener('click', () => {
       const profile = card.getAttribute('data-profile');
+      localStorage.setItem(LEVEL_KEY, profile);
 
       profileCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
@@ -738,6 +747,382 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.toggle('hidden', !match);
       });
     });
+  });
+
+  // ============================================================
+  // 15. Daily Lesson Overlay — Từ Vựng → Đọc Hiểu → Nghe & Nói → Viết → Đánh Giá
+  // ============================================================
+  const LESSONS = {
+    beginner: {
+      badge: 'A1 - A2',
+      vocab: [
+        { word: 'Meeting',   phonetic: '/ˈmiːtɪŋ/',  meaning: 'Cuộc họp' },
+        { word: 'Schedule',  phonetic: '/ˈskedʒuːl/', meaning: 'Lịch trình' },
+        { word: 'Email',     phonetic: '/ˈiːmeɪl/',  meaning: 'Thư điện tử' },
+        { word: 'Colleague', phonetic: '/ˈkɒliːɡ/',  meaning: 'Đồng nghiệp' },
+      ],
+      vocabQuiz: [
+        { q: 'Từ nào có nghĩa là "cuộc họp"?', options: ['Meeting', 'Schedule', 'Email', 'Colleague'], correct: 0 },
+        { q: 'Từ nào có nghĩa là "đồng nghiệp"?', options: ['Email', 'Colleague', 'Schedule', 'Meeting'], correct: 1 },
+        { q: '"Schedule" có nghĩa là gì?', options: ['Thư điện tử', 'Cuộc họp', 'Lịch trình', 'Đồng nghiệp'], correct: 2 },
+      ],
+      reading: {
+        title: 'A Normal Work Day',
+        passage: 'Every morning, Lan checks her email before the daily meeting. She writes her schedule for the day and talks with her colleagues about new tasks. After lunch, she replies to emails and prepares for tomorrow\'s meeting.',
+        quiz: [
+          { q: 'Lan làm gì đầu tiên vào buổi sáng?', options: ['Đi họp', 'Kiểm tra email', 'Ăn trưa', 'Viết lịch trình'], correct: 1 },
+          { q: 'Lan làm gì sau bữa trưa?', options: ['Trả lời email', 'Đi ngủ', 'Về nhà', 'Gọi điện'], correct: 0 },
+        ],
+      },
+      listening: [
+        'Nice to meet you. How are you doing?',
+        'Could you speak more slowly, please?',
+        'I have a meeting at 10 AM.',
+      ],
+      writing: { prompt: 'Viết 3-5 câu tiếng Anh mô tả công việc bạn đã làm hôm nay.', minWords: 15 },
+    },
+    intermediate: {
+      badge: 'B1 - B2',
+      vocab: [
+        { word: 'Deadline',   phonetic: '/ˈdedlaɪn/',    meaning: 'Hạn chót' },
+        { word: 'Negotiate',  phonetic: '/nɪˈɡoʊʃieɪt/',  meaning: 'Đàm phán' },
+        { word: 'Feedback',   phonetic: '/ˈfiːdbæk/',     meaning: 'Phản hồi, góp ý' },
+        { word: 'Prioritize', phonetic: '/praɪˈɒrɪtaɪz/', meaning: 'Ưu tiên' },
+      ],
+      vocabQuiz: [
+        { q: 'Từ nào có nghĩa là "hạn chót"?', options: ['Feedback', 'Deadline', 'Negotiate', 'Prioritize'], correct: 1 },
+        { q: '"Negotiate" có nghĩa là gì?', options: ['Ưu tiên', 'Phản hồi', 'Đàm phán', 'Hạn chót'], correct: 2 },
+        { q: 'Từ nào có nghĩa là "ưu tiên"?', options: ['Prioritize', 'Deadline', 'Feedback', 'Negotiate'], correct: 0 },
+      ],
+      reading: {
+        title: 'Handling a Tight Deadline',
+        passage: 'Minh received feedback from his manager about the client proposal. The deadline is Friday, so he needs to prioritize the most important sections first. He plans to negotiate a short extension if the design team cannot finish in time.',
+        quiz: [
+          { q: 'Minh nhận được gì từ quản lý?', options: ['Một hợp đồng mới', 'Phản hồi về đề xuất', 'Một cuộc họp gấp', 'Một email từ khách hàng'], correct: 1 },
+          { q: 'Minh dự định làm gì nếu đội thiết kế không kịp?', options: ['Huỷ dự án', 'Đàm phán gia hạn', 'Tự làm hết', 'Báo cáo cấp trên'], correct: 1 },
+        ],
+      },
+      listening: [
+        'Could we push the deadline to next Monday?',
+        'I really appreciate your feedback on this.',
+        'Let\'s prioritize the client-facing tasks first.',
+        'I\'d like to negotiate a better timeline.',
+      ],
+      writing: { prompt: 'Viết một email ngắn (tiếng Anh) xin gia hạn deadline cho quản lý của bạn, giải thích lý do ngắn gọn.', minWords: 30 },
+    },
+    advanced: {
+      badge: 'C1+',
+      vocab: [
+        { word: 'Leverage',   phonetic: '/ˈlevərɪdʒ/',   meaning: 'Tận dụng lợi thế' },
+        { word: 'Synergy',    phonetic: '/ˈsɪnərdʒi/',   meaning: 'Hiệu ứng cộng hưởng' },
+        { word: 'Escalate',   phonetic: '/ˈeskəleɪt/',   meaning: 'Leo thang, báo cáo lên cấp cao hơn' },
+        { word: 'Stakeholder',phonetic: '/ˈsteɪkhoʊldər/',meaning: 'Bên liên quan' },
+      ],
+      vocabQuiz: [
+        { q: 'Từ nào có nghĩa là "tận dụng lợi thế"?', options: ['Synergy', 'Leverage', 'Escalate', 'Stakeholder'], correct: 1 },
+        { q: '"Escalate" trong ngữ cảnh công sở nghĩa là gì?', options: ['Giảm quy mô', 'Báo cáo lên cấp cao hơn', 'Kết thúc dự án', 'Tuyển thêm người'], correct: 1 },
+        { q: 'Từ nào chỉ "bên liên quan" trong một dự án?', options: ['Stakeholder', 'Synergy', 'Leverage', 'Escalate'], correct: 0 },
+      ],
+      reading: {
+        title: 'Building Cross-Team Synergy',
+        passage: 'To leverage the strengths of both teams, the director proposed a joint task force that would create real synergy between product and sales. Key stakeholders were invited to the kickoff, and any blocking issue would be escalated directly to leadership within 48 hours.',
+        quiz: [
+          { q: 'Mục đích của việc lập "joint task force" là gì?', options: ['Cắt giảm nhân sự', 'Tạo hiệu ứng cộng hưởng giữa các đội', 'Thay đổi sản phẩm', 'Tăng lương'], correct: 1 },
+          { q: 'Vấn đề chặn tiến độ sẽ được xử lý như thế nào?', options: ['Bỏ qua', 'Escalate lên lãnh đạo trong 48h', 'Chờ họp tháng sau', 'Giao cho thực tập sinh'], correct: 1 },
+        ],
+      },
+      listening: [
+        'We need to leverage our existing client relationships.',
+        'This partnership could create real synergy for both sides.',
+        'I\'ll escalate this to senior leadership today.',
+        'All key stakeholders must sign off before we proceed.',
+      ],
+      writing: { prompt: 'Viết một đoạn văn thuyết phục (tiếng Anh) đề xuất một sáng kiến hợp tác giữa hai phòng ban.', minWords: 50 },
+    },
+  };
+
+  const lessonOverlay   = document.getElementById('lesson-overlay');
+  const lessonBody      = document.getElementById('lesson-body');
+  const lessonBackBtn   = document.getElementById('lesson-back-btn');
+  const lessonNextBtn   = document.getElementById('lesson-next-btn');
+  const lessonLevelBadge= document.getElementById('lesson-level-badge');
+  const lessonStepDots  = document.querySelectorAll('.lesson-step-dot');
+
+  let lessonState = null;
+
+  function getCurrentLevel() {
+    return localStorage.getItem('zen-level') || 'beginner';
+  }
+
+  function resetLessonState() {
+    const level = getCurrentLevel();
+    const data = LESSONS[level];
+    lessonState = {
+      level,
+      data,
+      step: 0,
+      vocabAnswers: new Array(data.vocabQuiz.length).fill(null),
+      readingAnswers: new Array(data.reading.quiz.length).fill(null),
+      listeningTicks: new Array(data.listening.length).fill(false),
+      writingText: '',
+      xpAwarded: false,
+    };
+  }
+
+  function speak(text) {
+    if (!window.speechSynthesis) { showToast('Trình duyệt của bạn không hỗ trợ đọc văn bản.'); return; }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = 0.9;
+    window.speechSynthesis.speak(utter);
+  }
+
+  function updateStepper() {
+    lessonStepDots.forEach(dot => {
+      const i = parseInt(dot.getAttribute('data-step'), 10);
+      dot.classList.toggle('active', i === lessonState.step);
+      dot.classList.toggle('done', i < lessonState.step);
+    });
+  }
+
+  function updateFooterButtons() {
+    lessonBackBtn.disabled = lessonState.step === 0;
+    if (lessonState.step === 3) {
+      lessonNextBtn.innerHTML = 'Xem Đánh Giá <i class="fas fa-chart-bar"></i>';
+      lessonNextBtn.disabled = false;
+    } else if (lessonState.step === 4) {
+      lessonNextBtn.innerHTML = 'Đóng <i class="fas fa-check"></i>';
+      lessonNextBtn.disabled = false;
+    } else {
+      lessonNextBtn.innerHTML = 'Tiếp Theo <i class="fas fa-arrow-right"></i>';
+      lessonNextBtn.disabled = false;
+    }
+  }
+
+  function renderVocabStep() {
+    const { data, vocabAnswers } = lessonState;
+    const cards = data.vocab.map(v => `
+      <div class="lesson-vocab-card">
+        <div class="lesson-vocab-word">${v.word}</div>
+        <div class="lesson-vocab-phonetic">${v.phonetic}</div>
+        <div class="lesson-vocab-meaning">${v.meaning}</div>
+      </div>
+    `).join('');
+
+    const quiz = data.vocabQuiz.map((q, qi) => renderQuizItem(q, qi, vocabAnswers, 'vocab')).join('');
+
+    lessonBody.innerHTML = `
+      <h3>Từ Vựng Hôm Nay</h3>
+      <p class="lesson-body-desc">Đọc kỹ 4 từ vựng sau, sau đó làm nhanh bài kiểm tra bên dưới.</p>
+      <div class="lesson-vocab-list">${cards}</div>
+      ${quiz}
+    `;
+    bindQuizEvents('vocab');
+  }
+
+  function renderQuizItem(q, qi, answers, group) {
+    const answered = answers[qi];
+    const opts = q.options.map((opt, oi) => {
+      let cls = 'lesson-quiz-opt';
+      if (answered !== null) {
+        if (oi === q.correct) cls += ' correct';
+        else if (oi === answered) cls += ' wrong';
+      }
+      return `<button class="${cls}" data-group="${group}" data-qi="${qi}" data-oi="${oi}" ${answered !== null ? 'disabled' : ''}>${opt}</button>`;
+    }).join('');
+    return `
+      <div class="lesson-quiz-item">
+        <div class="lesson-quiz-q">${q.q}</div>
+        <div class="lesson-quiz-options">${opts}</div>
+      </div>
+    `;
+  }
+
+  function bindQuizEvents(group) {
+    lessonBody.querySelectorAll(`.lesson-quiz-opt[data-group="${group}"]`).forEach(btn => {
+      btn.addEventListener('click', () => {
+        const qi = parseInt(btn.getAttribute('data-qi'), 10);
+        const oi = parseInt(btn.getAttribute('data-oi'), 10);
+        const answers = group === 'vocab' ? lessonState.vocabAnswers : lessonState.readingAnswers;
+        if (answers[qi] !== null) return; // already answered — guard beyond the disabled attribute
+        const quizData = group === 'vocab' ? lessonState.data.vocabQuiz : lessonState.data.reading.quiz;
+        answers[qi] = oi;
+        addXP(oi === quizData[qi].correct ? 4 : 1);
+        if (group === 'vocab') renderVocabStep(); else renderReadingStep();
+      });
+    });
+  }
+
+  function renderReadingStep() {
+    const { data, readingAnswers } = lessonState;
+    const quiz = data.reading.quiz.map((q, qi) => renderQuizItem(q, qi, readingAnswers, 'reading')).join('');
+    lessonBody.innerHTML = `
+      <h3>${data.reading.title}</h3>
+      <p class="lesson-body-desc">Đọc đoạn văn ngắn sau và trả lời câu hỏi.</p>
+      <div class="lesson-passage">${data.reading.passage}</div>
+      ${quiz}
+    `;
+    bindQuizEvents('reading');
+  }
+
+  function renderListeningStep() {
+    const { data, listeningTicks } = lessonState;
+    const items = data.listening.map((sentence, i) => `
+      <div class="lesson-listen-item">
+        <button class="lesson-listen-play" data-idx="${i}" aria-label="Nghe câu này"><i class="fas fa-volume-up"></i></button>
+        <span class="lesson-listen-text">"${sentence}"</span>
+        <label class="lesson-listen-check">
+          <input type="checkbox" data-idx="${i}" class="lesson-listen-tick" ${listeningTicks[i] ? 'checked' : ''}>
+          Đã luyện nói
+        </label>
+      </div>
+    `).join('');
+
+    lessonBody.innerHTML = `
+      <h3>Nghe &amp; Nói</h3>
+      <p class="lesson-body-desc">Bấm 🔊 để nghe từng câu (phát âm bằng giọng máy), nhại lại (shadowing) rồi tick "Đã luyện nói".</p>
+      ${items}
+    `;
+
+    lessonBody.querySelectorAll('.lesson-listen-play').forEach(btn => {
+      btn.addEventListener('click', () => speak(data.listening[parseInt(btn.getAttribute('data-idx'), 10)]));
+    });
+    lessonBody.querySelectorAll('.lesson-listen-tick').forEach(chk => {
+      chk.addEventListener('change', () => {
+        const idx = parseInt(chk.getAttribute('data-idx'), 10);
+        const wasTicked = listeningTicks[idx];
+        listeningTicks[idx] = chk.checked;
+        if (chk.checked && !wasTicked) addXP(2);
+        if (!chk.checked && wasTicked) addXP(-2);
+      });
+    });
+  }
+
+  function renderWritingStep() {
+    const { data, writingText } = lessonState;
+    lessonBody.innerHTML = `
+      <h3>Luyện Viết</h3>
+      <div class="lesson-writing-prompt">${data.writing.prompt}</div>
+      <textarea class="lesson-writing-textarea" id="lesson-writing-textarea" placeholder="Viết câu trả lời của bạn ở đây...">${writingText}</textarea>
+      <div class="lesson-writing-count" id="lesson-writing-count"></div>
+    `;
+    const textarea = document.getElementById('lesson-writing-textarea');
+    const countEl = document.getElementById('lesson-writing-count');
+
+    function updateCount() {
+      const words = textarea.value.trim().split(/\s+/).filter(Boolean).length;
+      const ok = words >= data.writing.minWords;
+      countEl.textContent = `${words} / ${data.writing.minWords} từ tối thiểu`;
+      countEl.classList.toggle('ok', ok);
+    }
+
+    textarea.addEventListener('input', () => {
+      lessonState.writingText = textarea.value;
+      updateCount();
+    });
+    updateCount();
+  }
+
+  function renderResultStep() {
+    const { data, vocabAnswers, readingAnswers, listeningTicks, writingText } = lessonState;
+    const vocabCorrect = vocabAnswers.filter((a, i) => a === data.vocabQuiz[i].correct).length;
+    const readingCorrect = readingAnswers.filter((a, i) => a === data.reading.quiz[i].correct).length;
+    const listenDone = listeningTicks.filter(Boolean).length;
+    const wordCount = writingText.trim().split(/\s+/).filter(Boolean).length;
+    const writingPass = wordCount >= data.writing.minWords;
+
+    const vocabPct = Math.round((vocabCorrect / data.vocabQuiz.length) * 100);
+    const readingPct = Math.round((readingCorrect / data.reading.quiz.length) * 100);
+    const listenPct = Math.round((listenDone / data.listening.length) * 100);
+    const overallPct = Math.round((vocabPct + readingPct + listenPct + (writingPass ? 100 : wordCount > 0 ? 50 : 0)) / 4);
+
+    function tag(pct) {
+      if (pct >= 80) return '<span class="lesson-result-tag good">Tốt</span>';
+      if (pct >= 50) return '<span class="lesson-result-tag mid">Khá</span>';
+      return '<span class="lesson-result-tag low">Cần cố gắng</span>';
+    }
+
+    lessonBody.innerHTML = `
+      <div class="lesson-result-summary">
+        <div class="lesson-result-score">${overallPct}%</div>
+        <div class="lesson-result-msg">${overallPct >= 80 ? 'Xuất sắc! Bạn đã nắm chắc bài học hôm nay.' : overallPct >= 50 ? 'Khá tốt! Ôn lại phần yếu để chắc kiến thức hơn.' : 'Đừng nản — hãy thử lại bài học này lần nữa nhé.'}</div>
+      </div>
+      <table class="lesson-result-table">
+        <thead><tr><th>Kỹ năng</th><th>Kết quả</th><th>Đánh giá</th></tr></thead>
+        <tbody>
+          <tr><td>🔤 Từ Vựng</td><td>${vocabCorrect}/${data.vocabQuiz.length} đúng</td><td>${tag(vocabPct)}</td></tr>
+          <tr><td>📖 Đọc Hiểu</td><td>${readingCorrect}/${data.reading.quiz.length} đúng</td><td>${tag(readingPct)}</td></tr>
+          <tr><td>🎧 Nghe &amp; Nói</td><td>${listenDone}/${data.listening.length} hoàn thành</td><td>${tag(listenPct)}</td></tr>
+          <tr><td>✍️ Viết</td><td>${wordCount} từ</td><td>${writingPass ? tag(100) : tag(wordCount > 0 ? 50 : 0)}</td></tr>
+        </tbody>
+      </table>
+    `;
+
+    if (!lessonState.xpAwarded) {
+      lessonState.xpAwarded = true;
+      addXP(20);
+      showToast('🎉 Hoàn thành bài học hôm nay! +20 XP thưởng.');
+    }
+  }
+
+  function renderLessonStep() {
+    updateStepper();
+    updateFooterButtons();
+    const renderers = [renderVocabStep, renderReadingStep, renderListeningStep, renderWritingStep, renderResultStep];
+    renderers[lessonState.step]();
+    lessonBody.scrollTop = 0;
+  }
+
+  function openLessonOverlay() {
+    resetLessonState();
+    lessonLevelBadge.textContent = lessonState.data.badge;
+    lessonOverlay.classList.add('open');
+    lessonOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    renderLessonStep();
+  }
+
+  function closeLessonOverlay() {
+    lessonOverlay.classList.remove('open');
+    lessonOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+  }
+
+  document.querySelectorAll('#navbar-cta, #mobile-drawer-cta').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeDrawer();
+      openLessonOverlay();
+    });
+  });
+
+  const lessonCloseBtn = document.getElementById('lesson-close-btn');
+  if (lessonCloseBtn) lessonCloseBtn.addEventListener('click', closeLessonOverlay);
+
+  lessonOverlay?.addEventListener('click', (e) => {
+    if (e.target === lessonOverlay) closeLessonOverlay();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lessonOverlay.classList.contains('open')) closeLessonOverlay();
+  });
+
+  lessonBackBtn.addEventListener('click', () => {
+    if (lessonState.step > 0) {
+      lessonState.step--;
+      renderLessonStep();
+    }
+  });
+
+  lessonNextBtn.addEventListener('click', () => {
+    if (lessonState.step === 4) {
+      closeLessonOverlay();
+      return;
+    }
+    lessonState.step++;
+    renderLessonStep();
   });
 
 });

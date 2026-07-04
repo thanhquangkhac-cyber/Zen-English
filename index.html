@@ -63,7 +63,7 @@
       <a href="#hoi-dap" class="mobile-nav-link"><i class="fas fa-question-circle"></i> Giải Đáp</a>
     </nav>
     <div class="mobile-drawer-footer">
-      <a href="#lo-trinh" class="btn-primary mobile-drawer-cta"><i class="fas fa-rocket"></i> Bắt Đầu Ngay</a>
+      <a href="#lo-trinh" class="btn-primary mobile-drawer-cta" id="mobile-drawer-cta"><i class="fas fa-rocket"></i> Bắt Đầu Ngay</a>
       <button id="theme-toggle-mobile" class="theme-toggle-drawer"><i class="fas fa-moon"></i><i class="fas fa-sun"></i> Chuyển giao diện</button>
     </div>
   </div>
@@ -2881,6 +2881,31 @@
       <p class="footer-copyright">&copy; 2026 Zen English. Bảo lưu mọi quyền.</p>
     </div>
   </footer>
+
+  <!-- Lesson Overlay (dynamic daily lesson, personalized by chosen level) -->
+  <div class="lesson-overlay" id="lesson-overlay" aria-hidden="true">
+    <div class="lesson-modal">
+      <div class="lesson-header">
+        <div class="lesson-header-info">
+          <span class="lesson-level-badge" id="lesson-level-badge">A1-A2</span>
+          <span class="lesson-header-title">Bài Học Hôm Nay</span>
+        </div>
+        <button class="lesson-close-btn" id="lesson-close-btn" aria-label="Đóng bài học"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="lesson-stepper" id="lesson-stepper">
+        <div class="lesson-step-dot active" data-step="0"><span class="lesson-step-num">1</span><span class="lesson-step-label">Từ Vựng</span></div>
+        <div class="lesson-step-dot" data-step="1"><span class="lesson-step-num">2</span><span class="lesson-step-label">Đọc Hiểu</span></div>
+        <div class="lesson-step-dot" data-step="2"><span class="lesson-step-num">3</span><span class="lesson-step-label">Nghe &amp; Nói</span></div>
+        <div class="lesson-step-dot" data-step="3"><span class="lesson-step-num">4</span><span class="lesson-step-label">Viết</span></div>
+        <div class="lesson-step-dot" data-step="4"><span class="lesson-step-num">5</span><span class="lesson-step-label">Đánh Giá</span></div>
+      </div>
+      <div class="lesson-body" id="lesson-body"></div>
+      <div class="lesson-footer">
+        <button class="lesson-nav-btn lesson-back-btn" id="lesson-back-btn"><i class="fas fa-arrow-left"></i> Quay Lại</button>
+        <button class="lesson-nav-btn lesson-next-btn btn-primary" id="lesson-next-btn">Tiếp Theo <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="app.js"></script>
