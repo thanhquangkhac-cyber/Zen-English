@@ -756,15 +756,11 @@ document.addEventListener('DOMContentLoaded', () => {
     beginner: {
       badge: 'A1 - A2',
       vocab: [
-        { word: 'Meeting',   phonetic: '/ˈmiːtɪŋ/',  meaning: 'Cuộc họp' },
-        { word: 'Schedule',  phonetic: '/ˈskedʒuːl/', meaning: 'Lịch trình' },
-        { word: 'Email',     phonetic: '/ˈiːmeɪl/',  meaning: 'Thư điện tử' },
-        { word: 'Colleague', phonetic: '/ˈkɒliːɡ/',  meaning: 'Đồng nghiệp' },
-      ],
-      vocabQuiz: [
-        { q: 'Từ nào có nghĩa là "cuộc họp"?', options: ['Meeting', 'Schedule', 'Email', 'Colleague'], correct: 0 },
-        { q: 'Từ nào có nghĩa là "đồng nghiệp"?', options: ['Email', 'Colleague', 'Schedule', 'Meeting'], correct: 1 },
-        { q: '"Schedule" có nghĩa là gì?', options: ['Thư điện tử', 'Cuộc họp', 'Lịch trình', 'Đồng nghiệp'], correct: 2 },
+        { word: 'Meeting',   phonetic: '/ˈmiːtɪŋ/',   meaning: 'Cuộc họp',     quiz: { options: ['Lịch trình', 'Cuộc họp', 'Báo cáo', 'Đồng nghiệp'], correct: 1 } },
+        { word: 'Schedule',  phonetic: '/ˈskedʒuːl/', meaning: 'Lịch trình',   quiz: { options: ['Đồng nghiệp', 'Báo cáo', 'Lịch trình', 'Thư điện tử'], correct: 2 } },
+        { word: 'Email',     phonetic: '/ˈiːmeɪl/',   meaning: 'Thư điện tử', quiz: { options: ['Thư điện tử', 'Cuộc họp', 'Lịch trình', 'Báo cáo'], correct: 0 } },
+        { word: 'Colleague', phonetic: '/ˈkɒliːɡ/',   meaning: 'Đồng nghiệp', quiz: { options: ['Báo cáo', 'Đồng nghiệp', 'Thư điện tử', 'Cuộc họp'], correct: 1 } },
+        { word: 'Report',    phonetic: '/rɪˈpɔːrt/',  meaning: 'Báo cáo',     quiz: { options: ['Lịch trình', 'Thư điện tử', 'Đồng nghiệp', 'Báo cáo'], correct: 3 } },
       ],
       reading: {
         title: 'A Normal Work Day',
@@ -792,15 +788,11 @@ document.addEventListener('DOMContentLoaded', () => {
     intermediate: {
       badge: 'B1 - B2',
       vocab: [
-        { word: 'Deadline',   phonetic: '/ˈdedlaɪn/',    meaning: 'Hạn chót' },
-        { word: 'Negotiate',  phonetic: '/nɪˈɡoʊʃieɪt/',  meaning: 'Đàm phán' },
-        { word: 'Feedback',   phonetic: '/ˈfiːdbæk/',     meaning: 'Phản hồi, góp ý' },
-        { word: 'Prioritize', phonetic: '/praɪˈɒrɪtaɪz/', meaning: 'Ưu tiên' },
-      ],
-      vocabQuiz: [
-        { q: 'Từ nào có nghĩa là "hạn chót"?', options: ['Feedback', 'Deadline', 'Negotiate', 'Prioritize'], correct: 1 },
-        { q: '"Negotiate" có nghĩa là gì?', options: ['Ưu tiên', 'Phản hồi', 'Đàm phán', 'Hạn chót'], correct: 2 },
-        { q: 'Từ nào có nghĩa là "ưu tiên"?', options: ['Prioritize', 'Deadline', 'Feedback', 'Negotiate'], correct: 0 },
+        { word: 'Deadline',   phonetic: '/ˈdedlaɪn/',    meaning: 'Hạn chót',        quiz: { options: ['Phản hồi, góp ý', 'Hạn chót', 'Đàm phán', 'Khách hàng'], correct: 1 } },
+        { word: 'Negotiate',  phonetic: '/nɪˈɡoʊʃieɪt/', meaning: 'Đàm phán',        quiz: { options: ['Ưu tiên', 'Khách hàng', 'Đàm phán', 'Hạn chót'], correct: 2 } },
+        { word: 'Feedback',   phonetic: '/ˈfiːdbæk/',    meaning: 'Phản hồi, góp ý', quiz: { options: ['Phản hồi, góp ý', 'Ưu tiên', 'Khách hàng', 'Đàm phán'], correct: 0 } },
+        { word: 'Prioritize', phonetic: '/praɪˈɒrɪtaɪz/',meaning: 'Ưu tiên',         quiz: { options: ['Hạn chót', 'Ưu tiên', 'Phản hồi, góp ý', 'Khách hàng'], correct: 1 } },
+        { word: 'Client',     phonetic: '/ˈklaɪənt/',    meaning: 'Khách hàng',      quiz: { options: ['Đàm phán', 'Hạn chót', 'Khách hàng', 'Ưu tiên'], correct: 2 } },
       ],
       reading: {
         title: 'Handling a Tight Deadline',
@@ -829,15 +821,11 @@ document.addEventListener('DOMContentLoaded', () => {
     advanced: {
       badge: 'C1+',
       vocab: [
-        { word: 'Leverage',   phonetic: '/ˈlevərɪdʒ/',   meaning: 'Tận dụng lợi thế' },
-        { word: 'Synergy',    phonetic: '/ˈsɪnərdʒi/',   meaning: 'Hiệu ứng cộng hưởng' },
-        { word: 'Escalate',   phonetic: '/ˈeskəleɪt/',   meaning: 'Leo thang, báo cáo lên cấp cao hơn' },
-        { word: 'Stakeholder',phonetic: '/ˈsteɪkhoʊldər/',meaning: 'Bên liên quan' },
-      ],
-      vocabQuiz: [
-        { q: 'Từ nào có nghĩa là "tận dụng lợi thế"?', options: ['Synergy', 'Leverage', 'Escalate', 'Stakeholder'], correct: 1 },
-        { q: '"Escalate" trong ngữ cảnh công sở nghĩa là gì?', options: ['Giảm quy mô', 'Báo cáo lên cấp cao hơn', 'Kết thúc dự án', 'Tuyển thêm người'], correct: 1 },
-        { q: 'Từ nào chỉ "bên liên quan" trong một dự án?', options: ['Stakeholder', 'Synergy', 'Leverage', 'Escalate'], correct: 0 },
+        { word: 'Leverage',    phonetic: '/ˈlevərɪdʒ/',     meaning: 'Tận dụng lợi thế',                 quiz: { options: ['Hiệu ứng cộng hưởng', 'Tận dụng lợi thế', 'Thoả hiệp', 'Bên liên quan'], correct: 1 } },
+        { word: 'Synergy',     phonetic: '/ˈsɪnərdʒi/',     meaning: 'Hiệu ứng cộng hưởng',              quiz: { options: ['Bên liên quan', 'Hiệu ứng cộng hưởng', 'Leo thang, báo cáo lên cấp cao hơn', 'Thoả hiệp'], correct: 1 } },
+        { word: 'Escalate',    phonetic: '/ˈeskəleɪt/',     meaning: 'Leo thang, báo cáo lên cấp cao hơn', quiz: { options: ['Leo thang, báo cáo lên cấp cao hơn', 'Tận dụng lợi thế', 'Thoả hiệp', 'Hiệu ứng cộng hưởng'], correct: 0 } },
+        { word: 'Stakeholder', phonetic: '/ˈsteɪkhoʊldər/', meaning: 'Bên liên quan',                    quiz: { options: ['Thoả hiệp', 'Bên liên quan', 'Tận dụng lợi thế', 'Leo thang, báo cáo lên cấp cao hơn'], correct: 1 } },
+        { word: 'Compromise',  phonetic: '/ˈkɒmprəmaɪz/',   meaning: 'Thoả hiệp',                        quiz: { options: ['Hiệu ứng cộng hưởng', 'Bên liên quan', 'Tận dụng lợi thế', 'Thoả hiệp'], correct: 3 } },
       ],
       reading: {
         title: 'Building Cross-Team Synergy',
@@ -885,7 +873,13 @@ document.addEventListener('DOMContentLoaded', () => {
       level,
       data,
       step: 0,
-      vocabAnswers: new Array(data.vocabQuiz.length).fill(null),
+      // Adaptive vocab round: test-first, teach only the words missed, retest those at the end.
+      vocabRound: {
+        order: data.vocab.map((_, i) => i),
+        pos: 0,
+        attempts: {},
+        results: {}, // wordIdx -> 'known' | 'learned' | 'weak'
+      },
       readingAnswers: new Array(data.reading.quiz.length).fill(null),
       listeningTicks: new Array(data.listening.length).fill(false),
       listeningScores: new Array(data.listening.length).fill(null),
@@ -940,25 +934,127 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function renderVocabStep() {
-    const { data, vocabAnswers } = lessonState;
-    const cards = data.vocab.map(v => `
-      <div class="lesson-vocab-card">
-        <div class="lesson-vocab-word">${v.word}</div>
-        <div class="lesson-vocab-phonetic">${v.phonetic}</div>
-        <div class="lesson-vocab-meaning">${v.meaning}</div>
-      </div>
-    `).join('');
+  const VOCAB_RESULT_LABEL = { known: 'Đã biết', learned: 'Đã học lại', weak: 'Cần ôn thêm' };
+  const VOCAB_RESULT_CLASS = { known: 'good', learned: 'mid', weak: 'low' };
 
-    const quiz = data.vocabQuiz.map((q, qi) => renderQuizItem(q, qi, vocabAnswers, 'vocab')).join('');
+  function renderVocabStep() {
+    const { data } = lessonState;
+    const round = lessonState.vocabRound;
+
+    if (round.pos >= round.order.length) {
+      renderVocabSummary();
+      return;
+    }
+
+    const wordIdx = round.order[round.pos];
+    const word = data.vocab[wordIdx];
+    const attemptNum = round.attempts[wordIdx] || 0; // 0 = first try (test only), 1 = retry (learn card shown)
+    const progressLabel = `Từ ${round.pos + 1} / ${round.order.length}`;
+
+    if (attemptNum === 0) {
+      // First encounter: quiz first — no meaning shown yet.
+      lessonBody.innerHTML = `
+        <h3>Từ Vựng Hôm Nay</h3>
+        <p class="lesson-body-desc">${progressLabel} — Bạn có biết nghĩa của từ này không? Chọn đáp án đúng, nếu chưa biết cứ đoán rồi học ngay bên dưới.</p>
+        <div class="lesson-vocab-card lesson-vocab-card--quiz">
+          <div class="lesson-vocab-word">${word.word}</div>
+          <div class="lesson-vocab-phonetic">${word.phonetic}</div>
+        </div>
+        <div class="lesson-quiz-item" id="vocab-quiz-item">
+          <div class="lesson-quiz-q">"${word.word}" có nghĩa là gì?</div>
+          <div class="lesson-quiz-options">
+            ${word.quiz.options.map((opt, oi) => `<button class="lesson-quiz-opt" data-oi="${oi}">${opt}</button>`).join('')}
+          </div>
+        </div>
+      `;
+      lessonBody.querySelectorAll('#vocab-quiz-item .lesson-quiz-opt').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const oi = parseInt(btn.getAttribute('data-oi'), 10);
+          const correct = oi === word.quiz.correct;
+          round.attempts[wordIdx] = 1;
+          if (correct) {
+            round.results[wordIdx] = 'known';
+            addXP(4);
+          } else {
+            addXP(1);
+            round.order.push(wordIdx); // schedule a retry later in the queue
+          }
+          renderVocabFeedback(word, oi, correct, !correct);
+        });
+      });
+    } else {
+      // Retry pass: show the learn card, then re-quiz the same word.
+      lessonBody.innerHTML = `
+        <h3>Từ Vựng Hôm Nay</h3>
+        <p class="lesson-body-desc">${progressLabel} — Bạn chưa nhớ từ này, học lại rồi làm lại bài kiểm tra.</p>
+        <div class="lesson-vocab-card">
+          <div class="lesson-vocab-word">${word.word}</div>
+          <div class="lesson-vocab-phonetic">${word.phonetic}</div>
+          <div class="lesson-vocab-meaning">${word.meaning}</div>
+        </div>
+        <div class="lesson-quiz-item" id="vocab-quiz-item">
+          <div class="lesson-quiz-q">Giờ thử lại: "${word.word}" có nghĩa là gì?</div>
+          <div class="lesson-quiz-options">
+            ${word.quiz.options.map((opt, oi) => `<button class="lesson-quiz-opt" data-oi="${oi}">${opt}</button>`).join('')}
+          </div>
+        </div>
+      `;
+      lessonBody.querySelectorAll('#vocab-quiz-item .lesson-quiz-opt').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const oi = parseInt(btn.getAttribute('data-oi'), 10);
+          const correct = oi === word.quiz.correct;
+          round.attempts[wordIdx] = 2;
+          round.results[wordIdx] = correct ? 'learned' : 'weak';
+          addXP(correct ? 4 : 1);
+          renderVocabFeedback(word, oi, correct, false);
+        });
+      });
+    }
+  }
+
+  function renderVocabFeedback(word, chosenIdx, correct, willRetry) {
+    lessonBody.querySelectorAll('#vocab-quiz-item .lesson-quiz-opt').forEach((btn, oi) => {
+      btn.disabled = true;
+      if (oi === word.quiz.correct) btn.classList.add('correct');
+      else if (oi === chosenIdx) btn.classList.add('wrong');
+    });
+
+    const feedback = document.createElement('div');
+    feedback.className = `lesson-sb-feedback ${correct ? 'correct' : 'wrong'}`;
+    feedback.style.marginTop = '14px';
+    feedback.innerHTML = correct
+      ? '✅ Chính xác! Chuyển sang từ tiếp theo.'
+      : (willRetry ? `❌ Chưa đúng — nghĩa là "${word.meaning}". Từ này sẽ được hỏi lại cuối vòng.` : `❌ Vẫn chưa đúng — nghĩa là "${word.meaning}". Ôn lại từ này sau nhé.`);
+    lessonBody.appendChild(feedback);
+
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'lesson-nav-btn btn-primary';
+    nextBtn.style.marginTop = '14px';
+    nextBtn.innerHTML = 'Từ Tiếp Theo <i class="fas fa-arrow-right"></i>';
+    nextBtn.addEventListener('click', () => {
+      lessonState.vocabRound.pos++;
+      renderVocabStep();
+    });
+    lessonBody.appendChild(nextBtn);
+  }
+
+  function renderVocabSummary() {
+    const { data } = lessonState;
+    const results = lessonState.vocabRound.results;
+    const rows = data.vocab.map((word, idx) => {
+      const r = results[idx] || 'weak';
+      return `<tr><td>${word.word}</td><td>${word.meaning}</td><td><span class="lesson-result-tag ${VOCAB_RESULT_CLASS[r]}">${VOCAB_RESULT_LABEL[r]}</span></td></tr>`;
+    }).join('');
 
     lessonBody.innerHTML = `
       <h3>Từ Vựng Hôm Nay</h3>
-      <p class="lesson-body-desc">Đọc kỹ 4 từ vựng sau, sau đó làm nhanh bài kiểm tra bên dưới.</p>
-      <div class="lesson-vocab-list">${cards}</div>
-      ${quiz}
+      <p class="lesson-body-desc">Hoàn tất! Đây là kết quả ${data.vocab.length} từ vựng hôm nay — bấm "Tiếp Theo" bên dưới để qua phần Đọc Hiểu.</p>
+      <table class="lesson-result-table">
+        <thead><tr><th>Từ</th><th>Nghĩa</th><th>Kết quả</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
     `;
-    bindQuizEvents('vocab');
   }
 
   function renderQuizItem(q, qi, answers, group) {
@@ -984,12 +1080,12 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => {
         const qi = parseInt(btn.getAttribute('data-qi'), 10);
         const oi = parseInt(btn.getAttribute('data-oi'), 10);
-        const answers = group === 'vocab' ? lessonState.vocabAnswers : lessonState.readingAnswers;
+        const answers = lessonState.readingAnswers;
         if (answers[qi] !== null) return; // already answered — guard beyond the disabled attribute
-        const quizData = group === 'vocab' ? lessonState.data.vocabQuiz : lessonState.data.reading.quiz;
+        const quizData = lessonState.data.reading.quiz;
         answers[qi] = oi;
         addXP(oi === quizData[qi].correct ? 4 : 1);
-        if (group === 'vocab') renderVocabStep(); else renderReadingStep();
+        renderReadingStep();
       });
     });
   }
@@ -1184,15 +1280,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderResultStep() {
-    const { data, vocabAnswers, readingAnswers, listeningTicks, writingText, sentenceAnswers } = lessonState;
-    const vocabCorrect = vocabAnswers.filter((a, i) => a === data.vocabQuiz[i].correct).length;
+    const { data, readingAnswers, listeningTicks, writingText, sentenceAnswers } = lessonState;
+    const vocabResults = lessonState.vocabRound.results;
+    const vocabKnown = data.vocab.filter((_, i) => vocabResults[i] === 'known').length;
+    const vocabLearned = data.vocab.filter((_, i) => vocabResults[i] === 'learned').length;
+    const vocabWeak = data.vocab.filter((_, i) => vocabResults[i] === 'weak').length;
     const readingCorrect = readingAnswers.filter((a, i) => a === data.reading.quiz[i].correct).length;
     const listenDone = listeningTicks.filter(Boolean).length;
     const wordCount = writingText.trim().split(/\s+/).filter(Boolean).length;
     const writingPass = wordCount >= data.writing.minWords;
     const sentenceCorrect = sentenceAnswers.filter(a => a && a.correct).length;
 
-    const vocabPct = Math.round((vocabCorrect / data.vocabQuiz.length) * 100);
+    const vocabPct = Math.round(((vocabKnown * 100 + vocabLearned * 70 + vocabWeak * 30) / (data.vocab.length * 100)) * 100);
     const readingPct = Math.round((readingCorrect / data.reading.quiz.length) * 100);
     const listenPct = Math.round((listenDone / data.listening.length) * 100);
     const sentencePct = Math.round((sentenceCorrect / data.writing.sentenceBuilder.length) * 100);
@@ -1213,7 +1312,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <table class="lesson-result-table">
         <thead><tr><th>Kỹ năng</th><th>Kết quả</th><th>Đánh giá</th></tr></thead>
         <tbody>
-          <tr><td>🔤 Từ Vựng</td><td>${vocabCorrect}/${data.vocabQuiz.length} đúng</td><td>${tag(vocabPct)}</td></tr>
+          <tr><td>🔤 Từ Vựng</td><td>${vocabKnown} đã biết, ${vocabLearned} đã học lại, ${vocabWeak} cần ôn thêm</td><td>${tag(vocabPct)}</td></tr>
           <tr><td>📖 Đọc Hiểu</td><td>${readingCorrect}/${data.reading.quiz.length} đúng</td><td>${tag(readingPct)}</td></tr>
           <tr><td>🎧 Nghe &amp; Nói</td><td>${listenDone}/${data.listening.length} đạt (≥50%)</td><td>${tag(listenPct)}</td></tr>
           <tr><td>✍️ Viết</td><td>${sentenceCorrect}/${data.writing.sentenceBuilder.length} câu đúng, ${wordCount} từ</td><td>${tag(writingPct)}</td></tr>

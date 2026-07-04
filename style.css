@@ -3294,6 +3294,16 @@ button, a, [role="button"] {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   padding: 14px;
+  margin-bottom: 18px;
+}
+
+.lesson-vocab-card--quiz {
+  text-align: center;
+  padding: 24px 14px;
+}
+
+.lesson-vocab-card--quiz .lesson-vocab-word {
+  font-size: 1.4rem;
 }
 
 .lesson-vocab-word {
