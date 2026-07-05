@@ -1105,7 +1105,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getDayContent(level, dayNumber) {
     const days = LESSONS[level].days;
-    return days[(dayNumber - 1) % days.length];
+    const safeDay = Number.isInteger(dayNumber) && dayNumber > 0 ? dayNumber : 1;
+    return days[(safeDay - 1) % days.length];
   }
 
   function resetLessonState() {
@@ -1622,7 +1623,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const level = getCurrentLevel();
     // Only resume a genuinely paused (mid-lesson) session. A saved session already at the
     // Result step has nothing left to resume — start fresh so the (possibly newly advanced) day is shown.
-    if (saved && saved.date === getTodayStr() && saved.level === level && saved.step < 4) {
+    // Also reject saves from before the day-progress feature existed (no dayNumber field).
+    if (saved && saved.date === getTodayStr() && saved.level === level && saved.step < 4 && Number.isInteger(saved.dayNumber)) {
       lessonState = { ...saved, data: getDayContent(level, saved.dayNumber) };
       showToast('📌 Đã khôi phục tiến độ bài học hôm nay.');
     } else {
