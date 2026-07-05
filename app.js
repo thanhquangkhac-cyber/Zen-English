@@ -765,101 +765,303 @@ document.addEventListener('DOMContentLoaded', () => {
   const LESSONS = {
     beginner: {
       badge: 'A1 - A2',
-      vocab: [
-        { word: 'Meeting',   phonetic: '/ˈmiːtɪŋ/',   meaning: 'Cuộc họp',     quiz: { options: ['Lịch trình', 'Cuộc họp', 'Báo cáo', 'Đồng nghiệp'], correct: 1 } },
-        { word: 'Schedule',  phonetic: '/ˈskedʒuːl/', meaning: 'Lịch trình',   quiz: { options: ['Đồng nghiệp', 'Báo cáo', 'Lịch trình', 'Thư điện tử'], correct: 2 } },
-        { word: 'Email',     phonetic: '/ˈiːmeɪl/',   meaning: 'Thư điện tử', quiz: { options: ['Thư điện tử', 'Cuộc họp', 'Lịch trình', 'Báo cáo'], correct: 0 } },
-        { word: 'Colleague', phonetic: '/ˈkɒliːɡ/',   meaning: 'Đồng nghiệp', quiz: { options: ['Báo cáo', 'Đồng nghiệp', 'Thư điện tử', 'Cuộc họp'], correct: 1 } },
-        { word: 'Report',    phonetic: '/rɪˈpɔːrt/',  meaning: 'Báo cáo',     quiz: { options: ['Lịch trình', 'Thư điện tử', 'Đồng nghiệp', 'Báo cáo'], correct: 3 } },
+      days: [
+        { // Day 1
+          vocab: [
+            { word: 'Meeting',   phonetic: '/ˈmiːtɪŋ/',   meaning: 'Cuộc họp',     quiz: { options: ['Lịch trình', 'Cuộc họp', 'Báo cáo', 'Đồng nghiệp'], correct: 1 } },
+            { word: 'Schedule',  phonetic: '/ˈskedʒuːl/', meaning: 'Lịch trình',   quiz: { options: ['Đồng nghiệp', 'Báo cáo', 'Lịch trình', 'Thư điện tử'], correct: 2 } },
+            { word: 'Email',     phonetic: '/ˈiːmeɪl/',   meaning: 'Thư điện tử', quiz: { options: ['Thư điện tử', 'Cuộc họp', 'Lịch trình', 'Báo cáo'], correct: 0 } },
+            { word: 'Colleague', phonetic: '/ˈkɒliːɡ/',   meaning: 'Đồng nghiệp', quiz: { options: ['Báo cáo', 'Đồng nghiệp', 'Thư điện tử', 'Cuộc họp'], correct: 1 } },
+            { word: 'Report',    phonetic: '/rɪˈpɔːrt/',  meaning: 'Báo cáo',     quiz: { options: ['Lịch trình', 'Thư điện tử', 'Đồng nghiệp', 'Báo cáo'], correct: 3 } },
+          ],
+          reading: {
+            title: 'A Normal Work Day',
+            passage: 'Every morning, Lan checks her email before the daily meeting. She writes her schedule for the day and talks with her colleagues about new tasks. After lunch, she replies to emails and prepares for tomorrow\'s meeting.',
+            quiz: [
+              { q: 'Lan làm gì đầu tiên vào buổi sáng?', options: ['Đi họp', 'Kiểm tra email', 'Ăn trưa', 'Viết lịch trình'], correct: 1 },
+              { q: 'Lan làm gì sau bữa trưa?', options: ['Trả lời email', 'Đi ngủ', 'Về nhà', 'Gọi điện'], correct: 0 },
+            ],
+          },
+          listening: [
+            'Nice to meet you. How are you doing?',
+            'Could you speak more slowly, please?',
+            'I have a meeting at 10 AM.',
+          ],
+          writing: {
+            prompt: 'Viết 3-5 câu tiếng Anh mô tả công việc bạn đã làm hôm nay.',
+            minWords: 15,
+            phrases: ['I checked my email', 'I had a meeting with', 'I talked to my colleague about', 'My schedule today was'],
+            sentenceBuilder: [
+              { scrambled: 'I / (check) / my email / every morning', answer: 'I check my email every morning' },
+              { scrambled: 'She / (have) / a meeting / at 10 AM', answer: 'She has a meeting at 10 AM' },
+            ],
+          },
+        },
+        { // Day 2
+          vocab: [
+            { word: 'Attend',   phonetic: '/əˈtend/',      meaning: 'Tham dự',    quiz: { options: ['Cập nhật', 'Tham dự', 'Trợ lý', 'Tài liệu'], correct: 1 } },
+            { word: 'Reminder', phonetic: '/rɪˈmaɪndər/',  meaning: 'Lời nhắc',   quiz: { options: ['Lời nhắc', 'Tài liệu', 'Tham dự', 'Trợ lý'], correct: 0 } },
+            { word: 'Update',   phonetic: '/ʌpˈdeɪt/',     meaning: 'Cập nhật',   quiz: { options: ['Trợ lý', 'Tham dự', 'Cập nhật', 'Lời nhắc'], correct: 2 } },
+            { word: 'Assistant',phonetic: '/əˈsɪstənt/',   meaning: 'Trợ lý',     quiz: { options: ['Tài liệu', 'Trợ lý', 'Lời nhắc', 'Cập nhật'], correct: 1 } },
+            { word: 'Document', phonetic: '/ˈdɒkjumənt/',  meaning: 'Tài liệu',   quiz: { options: ['Tham dự', 'Cập nhật', 'Lời nhắc', 'Tài liệu'], correct: 3 } },
+          ],
+          reading: {
+            title: 'Preparing for a Client Call',
+            passage: 'Before the client call, Nam sends a reminder to his assistant to update the document. He wants to attend the call with the latest numbers ready.',
+            quiz: [
+              { q: 'Nam nhờ trợ lý làm gì?', options: ['Đặt lịch họp mới', 'Cập nhật tài liệu', 'Gọi cho khách hàng', 'In báo cáo'], correct: 1 },
+              { q: 'Nam muốn điều gì khi tham dự cuộc gọi?', options: ['Có số liệu mới nhất', 'Đến trễ', 'Ghi âm lại', 'Huỷ cuộc gọi'], correct: 0 },
+            ],
+          },
+          listening: [
+            'Can you send me a reminder before the call?',
+            'I need to update this document today.',
+            'Please attend the meeting on my behalf.',
+          ],
+          writing: {
+            prompt: 'Viết 3-5 câu tiếng Anh về một cuộc gọi công việc bạn sắp tham dự.',
+            minWords: 15,
+            phrases: ['I will attend the call', 'Please send a reminder', 'I need to update', 'Could you help me'],
+            sentenceBuilder: [
+              { scrambled: 'I / (attend) / the meeting / tomorrow', answer: 'I attend the meeting tomorrow' },
+              { scrambled: 'She / (send) / a reminder / yesterday', answer: 'She sent a reminder yesterday' },
+            ],
+          },
+        },
+        { // Day 3
+          vocab: [
+            { word: 'Department', phonetic: '/dɪˈpɑːrtmənt/', meaning: 'Phòng ban',     quiz: { options: ['Nhiệm vụ', 'Phòng ban', 'Tiến độ', 'Giao việc'], correct: 1 } },
+            { word: 'Manager',    phonetic: '/ˈmænɪdʒər/',   meaning: 'Quản lý',       quiz: { options: ['Quản lý', 'Phòng ban', 'Nhiệm vụ', 'Tiến độ'], correct: 0 } },
+            { word: 'Task',       phonetic: '/tæsk/',         meaning: 'Nhiệm vụ',      quiz: { options: ['Giao việc', 'Tiến độ', 'Nhiệm vụ', 'Quản lý'], correct: 2 } },
+            { word: 'Assign',     phonetic: '/əˈsaɪn/',       meaning: 'Giao (việc)',   quiz: { options: ['Phòng ban', 'Giao (việc)', 'Quản lý', 'Nhiệm vụ'], correct: 1 } },
+            { word: 'Progress',   phonetic: '/ˈprɑːɡres/',    meaning: 'Tiến độ',       quiz: { options: ['Nhiệm vụ', 'Quản lý', 'Tiến độ', 'Phòng ban'], correct: 2 } },
+          ],
+          reading: {
+            title: 'A New Task',
+            passage: 'My manager assigned a new task to our department this morning. I need to check my progress every day and report by Friday.',
+            quiz: [
+              { q: 'Ai giao nhiệm vụ mới?', options: ['Khách hàng', 'Quản lý', 'Đồng nghiệp', 'Trợ lý'], correct: 1 },
+              { q: 'Cần báo cáo tiến độ khi nào?', options: ['Mỗi giờ', 'Cuối tháng', 'Thứ Sáu', 'Không cần báo cáo'], correct: 2 },
+            ],
+          },
+          listening: [
+            'My manager assigned this task to me.',
+            'What\'s the progress on your project?',
+            'Which department do you work in?',
+          ],
+          writing: {
+            prompt: 'Viết 3-5 câu mô tả một nhiệm vụ quản lý vừa giao cho bạn.',
+            minWords: 15,
+            phrases: ['My manager assigned', 'I work in the department of', 'The progress is', 'I need to finish by'],
+            sentenceBuilder: [
+              { scrambled: 'My manager / (assign) / this task / last week', answer: 'My manager assigned this task last week' },
+              { scrambled: 'I / (check) / my progress / every day', answer: 'I check my progress every day' },
+            ],
+          },
+        },
       ],
-      reading: {
-        title: 'A Normal Work Day',
-        passage: 'Every morning, Lan checks her email before the daily meeting. She writes her schedule for the day and talks with her colleagues about new tasks. After lunch, she replies to emails and prepares for tomorrow\'s meeting.',
-        quiz: [
-          { q: 'Lan làm gì đầu tiên vào buổi sáng?', options: ['Đi họp', 'Kiểm tra email', 'Ăn trưa', 'Viết lịch trình'], correct: 1 },
-          { q: 'Lan làm gì sau bữa trưa?', options: ['Trả lời email', 'Đi ngủ', 'Về nhà', 'Gọi điện'], correct: 0 },
-        ],
-      },
-      listening: [
-        'Nice to meet you. How are you doing?',
-        'Could you speak more slowly, please?',
-        'I have a meeting at 10 AM.',
-      ],
-      writing: {
-        prompt: 'Viết 3-5 câu tiếng Anh mô tả công việc bạn đã làm hôm nay.',
-        minWords: 15,
-        phrases: ['I checked my email', 'I had a meeting with', 'I talked to my colleague about', 'My schedule today was'],
-        sentenceBuilder: [
-          { scrambled: 'I / (check) / my email / every morning', answer: 'I check my email every morning' },
-          { scrambled: 'She / (have) / a meeting / at 10 AM', answer: 'She has a meeting at 10 AM' },
-        ],
-      },
     },
     intermediate: {
       badge: 'B1 - B2',
-      vocab: [
-        { word: 'Deadline',   phonetic: '/ˈdedlaɪn/',    meaning: 'Hạn chót',        quiz: { options: ['Phản hồi, góp ý', 'Hạn chót', 'Đàm phán', 'Khách hàng'], correct: 1 } },
-        { word: 'Negotiate',  phonetic: '/nɪˈɡoʊʃieɪt/', meaning: 'Đàm phán',        quiz: { options: ['Ưu tiên', 'Khách hàng', 'Đàm phán', 'Hạn chót'], correct: 2 } },
-        { word: 'Feedback',   phonetic: '/ˈfiːdbæk/',    meaning: 'Phản hồi, góp ý', quiz: { options: ['Phản hồi, góp ý', 'Ưu tiên', 'Khách hàng', 'Đàm phán'], correct: 0 } },
-        { word: 'Prioritize', phonetic: '/praɪˈɒrɪtaɪz/',meaning: 'Ưu tiên',         quiz: { options: ['Hạn chót', 'Ưu tiên', 'Phản hồi, góp ý', 'Khách hàng'], correct: 1 } },
-        { word: 'Client',     phonetic: '/ˈklaɪənt/',    meaning: 'Khách hàng',      quiz: { options: ['Đàm phán', 'Hạn chót', 'Khách hàng', 'Ưu tiên'], correct: 2 } },
+      days: [
+        { // Day 1
+          vocab: [
+            { word: 'Deadline',   phonetic: '/ˈdedlaɪn/',    meaning: 'Hạn chót',        quiz: { options: ['Phản hồi, góp ý', 'Hạn chót', 'Đàm phán', 'Khách hàng'], correct: 1 } },
+            { word: 'Negotiate',  phonetic: '/nɪˈɡoʊʃieɪt/', meaning: 'Đàm phán',        quiz: { options: ['Ưu tiên', 'Khách hàng', 'Đàm phán', 'Hạn chót'], correct: 2 } },
+            { word: 'Feedback',   phonetic: '/ˈfiːdbæk/',    meaning: 'Phản hồi, góp ý', quiz: { options: ['Phản hồi, góp ý', 'Ưu tiên', 'Khách hàng', 'Đàm phán'], correct: 0 } },
+            { word: 'Prioritize', phonetic: '/praɪˈɒrɪtaɪz/',meaning: 'Ưu tiên',         quiz: { options: ['Hạn chót', 'Ưu tiên', 'Phản hồi, góp ý', 'Khách hàng'], correct: 1 } },
+            { word: 'Client',     phonetic: '/ˈklaɪənt/',    meaning: 'Khách hàng',      quiz: { options: ['Đàm phán', 'Hạn chót', 'Khách hàng', 'Ưu tiên'], correct: 2 } },
+          ],
+          reading: {
+            title: 'Handling a Tight Deadline',
+            passage: 'Minh received feedback from his manager about the client proposal. The deadline is Friday, so he needs to prioritize the most important sections first. He plans to negotiate a short extension if the design team cannot finish in time.',
+            quiz: [
+              { q: 'Minh nhận được gì từ quản lý?', options: ['Một hợp đồng mới', 'Phản hồi về đề xuất', 'Một cuộc họp gấp', 'Một email từ khách hàng'], correct: 1 },
+              { q: 'Minh dự định làm gì nếu đội thiết kế không kịp?', options: ['Huỷ dự án', 'Đàm phán gia hạn', 'Tự làm hết', 'Báo cáo cấp trên'], correct: 1 },
+            ],
+          },
+          listening: [
+            'Could we push the deadline to next Monday?',
+            'I really appreciate your feedback on this.',
+            'Let\'s prioritize the client-facing tasks first.',
+            'I\'d like to negotiate a better timeline.',
+          ],
+          writing: {
+            prompt: 'Viết một email ngắn (tiếng Anh) xin gia hạn deadline cho quản lý của bạn, giải thích lý do ngắn gọn.',
+            minWords: 30,
+            phrases: ['I would like to request', 'Could we extend the deadline to', 'Thank you for your feedback on', 'I need to prioritize'],
+            sentenceBuilder: [
+              { scrambled: 'He / (give) / feedback / on the proposal / yesterday', answer: 'He gave feedback on the proposal yesterday' },
+              { scrambled: 'We / need / to / (prioritize) / this task', answer: 'We need to prioritize this task' },
+            ],
+          },
+        },
+        { // Day 2
+          vocab: [
+            { word: 'Presentation', phonetic: '/ˌprezənˈteɪʃn/', meaning: 'Bài thuyết trình', quiz: { options: ['Sự phản đối', 'Bài thuyết trình', 'Thuyết phục', 'Xác nhận'], correct: 1 } },
+            { word: 'Objection',    phonetic: '/əbˈdʒekʃn/',     meaning: 'Sự phản đối',      quiz: { options: ['Sự phản đối', 'Khung thời gian', 'Xác nhận', 'Thuyết phục'], correct: 0 } },
+            { word: 'Persuade',     phonetic: '/pərˈsweɪd/',     meaning: 'Thuyết phục',      quiz: { options: ['Xác nhận', 'Sự phản đối', 'Thuyết phục', 'Khung thời gian'], correct: 2 } },
+            { word: 'Timeline',     phonetic: '/ˈtaɪmlaɪn/',     meaning: 'Khung thời gian',  quiz: { options: ['Khung thời gian', 'Bài thuyết trình', 'Xác nhận', 'Sự phản đối'], correct: 0 } },
+            { word: 'Confirm',      phonetic: '/kənˈfɜːrm/',     meaning: 'Xác nhận',         quiz: { options: ['Thuyết phục', 'Xác nhận', 'Sự phản đối', 'Bài thuyết trình'], correct: 1 } },
+          ],
+          reading: {
+            title: 'Handling Client Objections',
+            passage: 'During the presentation, the client raised an objection about the timeline. Minh tried to persuade them by confirming a revised schedule with extra resources.',
+            quiz: [
+              { q: 'Khách hàng phản đối điều gì?', options: ['Giá cả', 'Khung thời gian', 'Chất lượng', 'Đội ngũ'], correct: 1 },
+              { q: 'Minh làm gì để thuyết phục khách hàng?', options: ['Giảm giá', 'Xác nhận lịch trình mới kèm nguồn lực', 'Huỷ dự án', 'Im lặng'], correct: 1 },
+            ],
+          },
+          listening: [
+            'Could you confirm the timeline by Friday?',
+            'I understand your objection, let me explain.',
+            'We need to persuade the client to accept this offer.',
+            'The presentation went well overall.',
+          ],
+          writing: {
+            prompt: 'Viết một email ngắn phản hồi một objection (phản đối) của khách hàng về timeline dự án.',
+            minWords: 30,
+            phrases: ['I understand your concern about', 'Let me confirm', 'We would like to propose', 'To address this objection'],
+            sentenceBuilder: [
+              { scrambled: 'The client / (raise) / an objection / during the meeting', answer: 'The client raised an objection during the meeting' },
+              { scrambled: 'We / (confirm) / the new timeline / this morning', answer: 'We confirmed the new timeline this morning' },
+            ],
+          },
+        },
+        { // Day 3
+          vocab: [
+            { word: 'Achievement', phonetic: '/əˈtʃiːvmənt/', meaning: 'Thành tựu',     quiz: { options: ['Thành tựu', 'Cải thiện', 'Mục tiêu', 'Điểm mạnh'], correct: 0 } },
+            { word: 'Improve',     phonetic: '/ɪmˈpruːv/',   meaning: 'Cải thiện',     quiz: { options: ['Đánh giá', 'Cải thiện', 'Thành tựu', 'Mục tiêu'], correct: 1 } },
+            { word: 'Target',      phonetic: '/ˈtɑːrɡɪt/',   meaning: 'Mục tiêu',      quiz: { options: ['Mục tiêu', 'Điểm mạnh', 'Đánh giá', 'Cải thiện'], correct: 0 } },
+            { word: 'Evaluate',    phonetic: '/ɪˈvæljueɪt/', meaning: 'Đánh giá',      quiz: { options: ['Thành tựu', 'Mục tiêu', 'Đánh giá', 'Điểm mạnh'], correct: 2 } },
+            { word: 'Strength',    phonetic: '/streŋθ/',     meaning: 'Điểm mạnh',     quiz: { options: ['Điểm mạnh', 'Cải thiện', 'Mục tiêu', 'Đánh giá'], correct: 0 } },
+          ],
+          reading: {
+            title: 'Quarterly Performance Review',
+            passage: 'At the end of the quarter, managers evaluate each employee\'s achievements and areas to improve. Linh exceeded her sales target and identified communication as her key strength.',
+            quiz: [
+              { q: 'Quản lý làm gì cuối quý?', options: ['Sa thải nhân viên', 'Đánh giá thành tựu và điểm cần cải thiện', 'Tăng lương cho tất cả', 'Đóng cửa phòng ban'], correct: 1 },
+              { q: 'Linh xác định điểm mạnh của mình là gì?', options: ['Quản lý thời gian', 'Giao tiếp', 'Bán hàng', 'Viết báo cáo'], correct: 1 },
+            ],
+          },
+          listening: [
+            'Let\'s evaluate your performance this quarter.',
+            'You exceeded your target, well done.',
+            'I want to improve my time management.',
+            'Communication is one of your strengths.',
+          ],
+          writing: {
+            prompt: 'Viết đoạn văn ngắn tự đánh giá thành tích công việc của bạn trong quý vừa qua.',
+            minWords: 30,
+            phrases: ['I achieved', 'One area I need to improve is', 'My target this quarter was', 'My key strength is'],
+            sentenceBuilder: [
+              { scrambled: 'She / (exceed) / her target / last quarter', answer: 'She exceeded her target last quarter' },
+              { scrambled: 'We / need / to / (improve) / our communication', answer: 'We need to improve our communication' },
+            ],
+          },
+        },
       ],
-      reading: {
-        title: 'Handling a Tight Deadline',
-        passage: 'Minh received feedback from his manager about the client proposal. The deadline is Friday, so he needs to prioritize the most important sections first. He plans to negotiate a short extension if the design team cannot finish in time.',
-        quiz: [
-          { q: 'Minh nhận được gì từ quản lý?', options: ['Một hợp đồng mới', 'Phản hồi về đề xuất', 'Một cuộc họp gấp', 'Một email từ khách hàng'], correct: 1 },
-          { q: 'Minh dự định làm gì nếu đội thiết kế không kịp?', options: ['Huỷ dự án', 'Đàm phán gia hạn', 'Tự làm hết', 'Báo cáo cấp trên'], correct: 1 },
-        ],
-      },
-      listening: [
-        'Could we push the deadline to next Monday?',
-        'I really appreciate your feedback on this.',
-        'Let\'s prioritize the client-facing tasks first.',
-        'I\'d like to negotiate a better timeline.',
-      ],
-      writing: {
-        prompt: 'Viết một email ngắn (tiếng Anh) xin gia hạn deadline cho quản lý của bạn, giải thích lý do ngắn gọn.',
-        minWords: 30,
-        phrases: ['I would like to request', 'Could we extend the deadline to', 'Thank you for your feedback on', 'I need to prioritize'],
-        sentenceBuilder: [
-          { scrambled: 'He / (give) / feedback / on the proposal / yesterday', answer: 'He gave feedback on the proposal yesterday' },
-          { scrambled: 'We / need / to / (prioritize) / this task', answer: 'We need to prioritize this task' },
-        ],
-      },
     },
     advanced: {
       badge: 'C1+',
-      vocab: [
-        { word: 'Leverage',    phonetic: '/ˈlevərɪdʒ/',     meaning: 'Tận dụng lợi thế',                 quiz: { options: ['Hiệu ứng cộng hưởng', 'Tận dụng lợi thế', 'Thoả hiệp', 'Bên liên quan'], correct: 1 } },
-        { word: 'Synergy',     phonetic: '/ˈsɪnərdʒi/',     meaning: 'Hiệu ứng cộng hưởng',              quiz: { options: ['Bên liên quan', 'Hiệu ứng cộng hưởng', 'Leo thang, báo cáo lên cấp cao hơn', 'Thoả hiệp'], correct: 1 } },
-        { word: 'Escalate',    phonetic: '/ˈeskəleɪt/',     meaning: 'Leo thang, báo cáo lên cấp cao hơn', quiz: { options: ['Leo thang, báo cáo lên cấp cao hơn', 'Tận dụng lợi thế', 'Thoả hiệp', 'Hiệu ứng cộng hưởng'], correct: 0 } },
-        { word: 'Stakeholder', phonetic: '/ˈsteɪkhoʊldər/', meaning: 'Bên liên quan',                    quiz: { options: ['Thoả hiệp', 'Bên liên quan', 'Tận dụng lợi thế', 'Leo thang, báo cáo lên cấp cao hơn'], correct: 1 } },
-        { word: 'Compromise',  phonetic: '/ˈkɒmprəmaɪz/',   meaning: 'Thoả hiệp',                        quiz: { options: ['Hiệu ứng cộng hưởng', 'Bên liên quan', 'Tận dụng lợi thế', 'Thoả hiệp'], correct: 3 } },
+      days: [
+        { // Day 1
+          vocab: [
+            { word: 'Leverage',    phonetic: '/ˈlevərɪdʒ/',     meaning: 'Tận dụng lợi thế',                 quiz: { options: ['Hiệu ứng cộng hưởng', 'Tận dụng lợi thế', 'Thoả hiệp', 'Bên liên quan'], correct: 1 } },
+            { word: 'Synergy',     phonetic: '/ˈsɪnərdʒi/',     meaning: 'Hiệu ứng cộng hưởng',              quiz: { options: ['Bên liên quan', 'Hiệu ứng cộng hưởng', 'Leo thang, báo cáo lên cấp cao hơn', 'Thoả hiệp'], correct: 1 } },
+            { word: 'Escalate',    phonetic: '/ˈeskəleɪt/',     meaning: 'Leo thang, báo cáo lên cấp cao hơn', quiz: { options: ['Leo thang, báo cáo lên cấp cao hơn', 'Tận dụng lợi thế', 'Thoả hiệp', 'Hiệu ứng cộng hưởng'], correct: 0 } },
+            { word: 'Stakeholder', phonetic: '/ˈsteɪkhoʊldər/', meaning: 'Bên liên quan',                    quiz: { options: ['Thoả hiệp', 'Bên liên quan', 'Tận dụng lợi thế', 'Leo thang, báo cáo lên cấp cao hơn'], correct: 1 } },
+            { word: 'Compromise',  phonetic: '/ˈkɒmprəmaɪz/',   meaning: 'Thoả hiệp',                        quiz: { options: ['Hiệu ứng cộng hưởng', 'Bên liên quan', 'Tận dụng lợi thế', 'Thoả hiệp'], correct: 3 } },
+          ],
+          reading: {
+            title: 'Building Cross-Team Synergy',
+            passage: 'To leverage the strengths of both teams, the director proposed a joint task force that would create real synergy between product and sales. Key stakeholders were invited to the kickoff, and any blocking issue would be escalated directly to leadership within 48 hours.',
+            quiz: [
+              { q: 'Mục đích của việc lập "joint task force" là gì?', options: ['Cắt giảm nhân sự', 'Tạo hiệu ứng cộng hưởng giữa các đội', 'Thay đổi sản phẩm', 'Tăng lương'], correct: 1 },
+              { q: 'Vấn đề chặn tiến độ sẽ được xử lý như thế nào?', options: ['Bỏ qua', 'Escalate lên lãnh đạo trong 48h', 'Chờ họp tháng sau', 'Giao cho thực tập sinh'], correct: 1 },
+            ],
+          },
+          listening: [
+            'We need to leverage our existing client relationships.',
+            'This partnership could create real synergy for both sides.',
+            'I\'ll escalate this to senior leadership today.',
+            'All key stakeholders must sign off before we proceed.',
+          ],
+          writing: {
+            prompt: 'Viết một đoạn văn thuyết phục (tiếng Anh) đề xuất một sáng kiến hợp tác giữa hai phòng ban.',
+            minWords: 50,
+            phrases: ['In order to leverage', 'This creates strong synergy between', 'I would like to escalate', 'All key stakeholders should'],
+            sentenceBuilder: [
+              { scrambled: 'The company / (leverage) / its resources / to grow faster', answer: 'The company leverages its resources to grow faster' },
+              { scrambled: 'They / (escalate) / the issue / to management / last week', answer: 'They escalated the issue to management last week' },
+            ],
+          },
+        },
+        { // Day 2
+          vocab: [
+            { word: 'Transition',  phonetic: '/trænˈzɪʃn/',   meaning: 'Sự chuyển đổi',        quiz: { options: ['Sự kháng cự', 'Sự chuyển đổi', 'Đồng bộ', 'Sáng kiến'], correct: 1 } },
+            { word: 'Resistance',  phonetic: '/rɪˈzɪstəns/',  meaning: 'Sự kháng cự',          quiz: { options: ['Sự kháng cự', 'Đà phát triển', 'Sáng kiến', 'Đồng bộ'], correct: 0 } },
+            { word: 'Align',       phonetic: '/əˈlaɪn/',      meaning: 'Đồng bộ, thống nhất',  quiz: { options: ['Sáng kiến', 'Sự chuyển đổi', 'Đồng bộ, thống nhất', 'Đà phát triển'], correct: 2 } },
+            { word: 'Initiative',  phonetic: '/ɪˈnɪʃətɪv/',   meaning: 'Sáng kiến',            quiz: { options: ['Sáng kiến', 'Sự kháng cự', 'Đà phát triển', 'Sự chuyển đổi'], correct: 0 } },
+            { word: 'Momentum',    phonetic: '/moʊˈmentəm/',  meaning: 'Đà phát triển',        quiz: { options: ['Đồng bộ', 'Sự chuyển đổi', 'Sự kháng cự', 'Đà phát triển'], correct: 3 } },
+          ],
+          reading: {
+            title: 'Leading a Digital Transition',
+            passage: 'The transition to a new system met some resistance from senior staff. To align the whole team, leadership launched an initiative that built momentum through early wins.',
+            quiz: [
+              { q: 'Ai phản ứng kháng cự với hệ thống mới?', options: ['Nhân viên mới', 'Nhân sự cấp cao', 'Khách hàng', 'Đối tác'], correct: 1 },
+              { q: 'Sáng kiến của lãnh đạo tạo ra điều gì?', options: ['Đà phát triển qua các thắng lợi sớm', 'Thêm sự kháng cự', 'Chi phí phát sinh', 'Sự chậm trễ'], correct: 0 },
+            ],
+          },
+          listening: [
+            'We need to align our teams before the transition.',
+            'There\'s some resistance to this initiative.',
+            'Let\'s build momentum with a few quick wins.',
+            'This transition will take about six months.',
+          ],
+          writing: {
+            prompt: 'Viết đoạn văn thuyết phục về cách xử lý sự kháng cự (resistance) khi triển khai một thay đổi lớn trong công ty.',
+            minWords: 50,
+            phrases: ['To align the team, we should', 'This resistance can be addressed by', 'This initiative will build momentum by', 'During this transition'],
+            sentenceBuilder: [
+              { scrambled: 'The initiative / (build) / momentum / quickly', answer: 'The initiative built momentum quickly' },
+              { scrambled: 'They / (align) / their goals / last month', answer: 'They aligned their goals last month' },
+            ],
+          },
+        },
+        { // Day 3
+          vocab: [
+            { word: 'Forecast',       phonetic: '/ˈfɔːrkæst/',        meaning: 'Dự báo',              quiz: { options: ['Dự báo', 'Phân bổ', 'Tối ưu hoá', 'Tạo sự khác biệt'], correct: 0 } },
+            { word: 'Allocate',       phonetic: '/ˈæləkeɪt/',         meaning: 'Phân bổ',              quiz: { options: ['Bền vững', 'Phân bổ', 'Dự báo', 'Tối ưu hoá'], correct: 1 } },
+            { word: 'Sustainable',    phonetic: '/səˈsteɪnəbl/',      meaning: 'Bền vững',             quiz: { options: ['Bền vững', 'Tạo sự khác biệt', 'Phân bổ', 'Dự báo'], correct: 0 } },
+            { word: 'Differentiate', phonetic: '/ˌdɪfəˈrenʃieɪt/',   meaning: 'Tạo sự khác biệt',     quiz: { options: ['Tối ưu hoá', 'Dự báo', 'Tạo sự khác biệt', 'Bền vững'], correct: 2 } },
+            { word: 'Optimize',       phonetic: '/ˈɒptɪmaɪz/',        meaning: 'Tối ưu hoá',           quiz: { options: ['Phân bổ', 'Tối ưu hoá', 'Bền vững', 'Tạo sự khác biệt'], correct: 1 } },
+          ],
+          reading: {
+            title: 'Building a Sustainable Growth Strategy',
+            passage: 'The board reviewed the revenue forecast and agreed to allocate more budget to R&D. To differentiate from competitors, the company will optimize its supply chain for sustainable long-term growth.',
+            quiz: [
+              { q: 'Hội đồng quản trị quyết định gì sau khi xem dự báo doanh thu?', options: ['Cắt giảm R&D', 'Phân bổ thêm ngân sách cho R&D', 'Sa thải nhân sự', 'Đóng cửa chi nhánh'], correct: 1 },
+              { q: 'Công ty làm gì để tạo sự khác biệt với đối thủ?', options: ['Giảm giá sản phẩm', 'Tối ưu hoá chuỗi cung ứng', 'Sao chép đối thủ', 'Ngừng đầu tư'], correct: 1 },
+            ],
+          },
+          listening: [
+            'Our forecast shows strong growth next quarter.',
+            'We need to allocate more budget to this project.',
+            'This strategy will help us differentiate from competitors.',
+            'Let\'s optimize the process for sustainability.',
+          ],
+          writing: {
+            prompt: 'Viết đoạn văn thuyết phục đề xuất chiến lược tăng trưởng bền vững (sustainable growth) cho công ty.',
+            minWords: 50,
+            phrases: ['Based on our forecast', 'We should allocate resources to', 'This will help us differentiate by', 'To optimize for sustainability'],
+            sentenceBuilder: [
+              { scrambled: 'The company / (optimize) / its supply chain / this year', answer: 'The company optimized its supply chain this year' },
+              { scrambled: 'They / (allocate) / more budget / to R&D', answer: 'They allocated more budget to R&D' },
+            ],
+          },
+        },
       ],
-      reading: {
-        title: 'Building Cross-Team Synergy',
-        passage: 'To leverage the strengths of both teams, the director proposed a joint task force that would create real synergy between product and sales. Key stakeholders were invited to the kickoff, and any blocking issue would be escalated directly to leadership within 48 hours.',
-        quiz: [
-          { q: 'Mục đích của việc lập "joint task force" là gì?', options: ['Cắt giảm nhân sự', 'Tạo hiệu ứng cộng hưởng giữa các đội', 'Thay đổi sản phẩm', 'Tăng lương'], correct: 1 },
-          { q: 'Vấn đề chặn tiến độ sẽ được xử lý như thế nào?', options: ['Bỏ qua', 'Escalate lên lãnh đạo trong 48h', 'Chờ họp tháng sau', 'Giao cho thực tập sinh'], correct: 1 },
-        ],
-      },
-      listening: [
-        'We need to leverage our existing client relationships.',
-        'This partnership could create real synergy for both sides.',
-        'I\'ll escalate this to senior leadership today.',
-        'All key stakeholders must sign off before we proceed.',
-      ],
-      writing: {
-        prompt: 'Viết một đoạn văn thuyết phục (tiếng Anh) đề xuất một sáng kiến hợp tác giữa hai phòng ban.',
-        minWords: 50,
-        phrases: ['In order to leverage', 'This creates strong synergy between', 'I would like to escalate', 'All key stakeholders should'],
-        sentenceBuilder: [
-          { scrambled: 'The company / (leverage) / its resources / to grow faster', answer: 'The company leverages its resources to grow faster' },
-          { scrambled: 'They / (escalate) / the issue / to management / last week', answer: 'They escalated the issue to management last week' },
-        ],
-      },
     },
   };
 
@@ -876,11 +1078,43 @@ document.addEventListener('DOMContentLoaded', () => {
     return localStorage.getItem('zen-level') || 'beginner';
   }
 
+  // ── Day progress per level: which "day" of content to serve next. Advances only when a
+  // lesson round is actually completed — not by calendar date — so a diligent learner who
+  // finishes several rounds in one sitting (via "Học Thêm") races ahead through the roadmap.
+  const DAY_PROGRESS_KEY = 'zen-day-progress';
+
+  function loadDayProgress() {
+    try { return JSON.parse(localStorage.getItem(DAY_PROGRESS_KEY)) || {}; } catch { return {}; }
+  }
+
+  function saveDayProgress(data) {
+    localStorage.setItem(DAY_PROGRESS_KEY, JSON.stringify(data));
+    notifyDataChanged();
+  }
+
+  function getCurrentDay(level) {
+    return loadDayProgress()[level] || 1;
+  }
+
+  function advanceDay(level) {
+    const progress = loadDayProgress();
+    progress[level] = (progress[level] || 1) + 1;
+    saveDayProgress(progress);
+    return progress[level];
+  }
+
+  function getDayContent(level, dayNumber) {
+    const days = LESSONS[level].days;
+    return days[(dayNumber - 1) % days.length];
+  }
+
   function resetLessonState() {
     const level = getCurrentLevel();
-    const data = LESSONS[level];
+    const dayNumber = getCurrentDay(level);
+    const data = getDayContent(level, dayNumber);
     lessonState = {
       level,
+      dayNumber,
       data,
       step: 0,
       // Adaptive vocab round: test-first, teach only the words missed, retest those at the end.
@@ -1351,8 +1585,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('lesson-learn-more-btn').addEventListener('click', () => {
       resetLessonState();
+      lessonLevelBadge.textContent = `${LESSONS[lessonState.level].badge} · Ngày ${lessonState.dayNumber}`;
       renderLessonStep();
-      showToast('📚 Bắt đầu vòng học thêm — cùng 5 từ vựng, ôn lại cho chắc!');
+      showToast(`📚 Học thêm Ngày ${lessonState.dayNumber} — rút ngắn lộ trình của bạn!`);
     });
 
     document.getElementById('lesson-pause-btn').addEventListener('click', () => {
@@ -1364,6 +1599,12 @@ document.addEventListener('DOMContentLoaded', () => {
       lessonState.xpAwarded = true;
       addXP(20);
       showToast('🎉 Hoàn thành bài học hôm nay! +20 XP thưởng.');
+      // Advance the roadmap by one day so "Học Thêm" (or the next visit) serves fresh content —
+      // diligent learners doing multiple rounds in one sitting race ahead through the roadmap.
+      const dayProgress = loadDayProgress();
+      if ((dayProgress[lessonState.level] || 1) === lessonState.dayNumber) {
+        advanceDay(lessonState.level);
+      }
     }
   }
 
@@ -1379,13 +1620,15 @@ document.addEventListener('DOMContentLoaded', () => {
   function openLessonOverlay() {
     const saved = loadLessonProgress();
     const level = getCurrentLevel();
-    if (saved && saved.date === getTodayStr() && saved.level === level) {
-      lessonState = { ...saved, data: LESSONS[level] };
+    // Only resume a genuinely paused (mid-lesson) session. A saved session already at the
+    // Result step has nothing left to resume — start fresh so the (possibly newly advanced) day is shown.
+    if (saved && saved.date === getTodayStr() && saved.level === level && saved.step < 4) {
+      lessonState = { ...saved, data: getDayContent(level, saved.dayNumber) };
       showToast('📌 Đã khôi phục tiến độ bài học hôm nay.');
     } else {
       resetLessonState();
     }
-    lessonLevelBadge.textContent = lessonState.data.badge;
+    lessonLevelBadge.textContent = `${LESSONS[level].badge} · Ngày ${lessonState.dayNumber}`;
     lessonOverlay.classList.add('open');
     lessonOverlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
