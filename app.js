@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Tells auth.js (if a user is signed in) that progress data changed and should sync to Firestore.
+  function notifyDataChanged() {
+    window.dispatchEvent(new CustomEvent('zen:data-changed'));
+  }
+
   // ============================================================
   // 1. Theme Management (Light / Dark)
   // ============================================================
@@ -138,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.addEventListener('click', () => {
       const profile = card.getAttribute('data-profile');
       localStorage.setItem(LEVEL_KEY, profile);
+      notifyDataChanged();
 
       profileCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
@@ -388,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveTracker(data) {
     localStorage.setItem(TRACKER_KEY, JSON.stringify(data));
+    notifyDataChanged();
   }
 
   function loadStreak() {
@@ -396,6 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveStreak(data) {
     localStorage.setItem(STREAK_KEY, JSON.stringify(data));
+    notifyDataChanged();
   }
 
   function updateStreakIfAllDone(doneCount, today) {
@@ -481,6 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveXP(data) {
     localStorage.setItem(XP_KEY, JSON.stringify(data));
+    notifyDataChanged();
   }
 
   function renderXP() {
@@ -516,6 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveMistakes(list) {
     localStorage.setItem(MISTAKES_KEY, JSON.stringify(list));
+    notifyDataChanged();
   }
 
   function renderMistakes() {
@@ -897,6 +907,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const { data, ...toSave } = lessonState; // `data` is just a reference to the static LESSONS entry — no need to persist it
     toSave.date = getTodayStr();
     localStorage.setItem(LESSON_PROGRESS_KEY, JSON.stringify(toSave));
+    notifyDataChanged();
   }
 
   function loadLessonProgress() {
