@@ -44,6 +44,15 @@ function applyCloudState(cloudData) {
   });
 }
 
+function clearLocalState() {
+  LOCAL_KEYS.forEach((key) => localStorage.removeItem(key));
+}
+
+// Tracks which account's data currently sits in this browser's localStorage, so switching to a
+// different Google account on the same device (without an explicit sign-out in between) doesn't
+// leak the previous person's streak/XP/lesson-progress into the new account.
+const LOCAL_OWNER_KEY = 'zen-local-owner';
+
 let currentUser = null;
 let profileLoaded = null;
 let syncTimer = null;
@@ -174,6 +183,8 @@ onAuthStateChanged(auth, async (user) => {
 
   if (!user) {
     profileLoaded = null;
+    clearLocalState();
+    localStorage.removeItem(LOCAL_OWNER_KEY);
     setAccountButtonLabel('Đăng Nhập');
     if (authOverlay.classList.contains('open')) renderAuthBody();
     return;
@@ -181,11 +192,20 @@ onAuthStateChanged(auth, async (user) => {
 
   setAccountButtonLabel(user.displayName || 'Tài khoản');
 
+  // If this device's local data was last touched by a DIFFERENT account (switched Google
+  // accounts without signing out first), it isn't guest data to migrate — wipe it so it
+  // can't leak into the newly signed-in account.
+  const localOwner = localStorage.getItem(LOCAL_OWNER_KEY);
+  if (localOwner && localOwner !== user.uid) {
+    clearLocalState();
+  }
+
   const snap = await getDoc(doc(db, 'users', user.uid));
   if (snap.exists()) {
     profileLoaded = snap.data();
     const alreadySynced = sessionStorage.getItem('zen-cloud-synced') === user.uid;
     applyCloudState(profileLoaded);
+    localStorage.setItem(LOCAL_OWNER_KEY, user.uid);
     if (!alreadySynced) {
       // First time this browser session sees cloud data — reload once so every
       // localStorage-driven view in app.js picks up the synced values.
@@ -195,6 +215,7 @@ onAuthStateChanged(auth, async (user) => {
     }
   } else {
     profileLoaded = {};
+    localStorage.setItem(LOCAL_OWNER_KEY, user.uid);
   }
 
   if (authOverlay.classList.contains('open')) renderAuthBody();
