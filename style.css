@@ -3641,6 +3641,48 @@ button, a, [role="button"] {
 .lesson-result-tag.mid  { background: rgba(245,158,11,0.15); color: #f59e0b; }
 .lesson-result-tag.low  { background: rgba(239,68,68,0.15); color: #ef4444; }
 
+.lesson-result-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.lesson-result-action-btn {
+  flex: 1;
+  min-width: 160px;
+  background: var(--accent-gradient);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 12px 20px;
+  border-radius: 100px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.lesson-result-action-btn:hover { transform: translateY(-2px); }
+
+.lesson-result-action-btn.secondary {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.lesson-result-action-btn.secondary:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+@media (max-width: 480px) {
+  .lesson-result-actions { flex-direction: column; }
+}
+
 .lesson-footer {
   display: flex;
   justify-content: space-between;

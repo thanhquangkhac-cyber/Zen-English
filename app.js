@@ -889,6 +889,20 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  // ── Save/resume progress: lets the user pause mid-lesson and pick up where they left off ──
+  const LESSON_PROGRESS_KEY = 'zen-lesson-progress';
+
+  function saveLessonProgress() {
+    if (!lessonState) return;
+    const { data, ...toSave } = lessonState; // `data` is just a reference to the static LESSONS entry — no need to persist it
+    toSave.date = getTodayStr();
+    localStorage.setItem(LESSON_PROGRESS_KEY, JSON.stringify(toSave));
+  }
+
+  function loadLessonProgress() {
+    try { return JSON.parse(localStorage.getItem(LESSON_PROGRESS_KEY)); } catch { return null; }
+  }
+
   // Word-overlap similarity: % of target words actually present in what was recognized/typed
   function wordOverlapScore(target, attempt) {
     const norm = s => s.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
@@ -924,13 +938,13 @@ document.addEventListener('DOMContentLoaded', () => {
     lessonBackBtn.disabled = lessonState.step === 0;
     if (lessonState.step === 3) {
       lessonNextBtn.innerHTML = 'Xem Đánh Giá <i class="fas fa-chart-bar"></i>';
-      lessonNextBtn.disabled = false;
+      lessonNextBtn.style.display = '';
     } else if (lessonState.step === 4) {
-      lessonNextBtn.innerHTML = 'Đóng <i class="fas fa-check"></i>';
-      lessonNextBtn.disabled = false;
+      // Result step has its own "Học Thêm" / "Dừng Tạm Thời" actions in the body instead.
+      lessonNextBtn.style.display = 'none';
     } else {
       lessonNextBtn.innerHTML = 'Tiếp Theo <i class="fas fa-arrow-right"></i>';
-      lessonNextBtn.disabled = false;
+      lessonNextBtn.style.display = '';
     }
   }
 
@@ -1318,7 +1332,22 @@ document.addEventListener('DOMContentLoaded', () => {
           <tr><td>✍️ Viết</td><td>${sentenceCorrect}/${data.writing.sentenceBuilder.length} câu đúng, ${wordCount} từ</td><td>${tag(writingPct)}</td></tr>
         </tbody>
       </table>
+      <div class="lesson-result-actions">
+        <button type="button" class="lesson-result-action-btn" id="lesson-learn-more-btn"><i class="fas fa-redo"></i> Học Thêm</button>
+        <button type="button" class="lesson-result-action-btn secondary" id="lesson-pause-btn"><i class="fas fa-pause"></i> Dừng Tạm Thời</button>
+      </div>
     `;
+
+    document.getElementById('lesson-learn-more-btn').addEventListener('click', () => {
+      resetLessonState();
+      renderLessonStep();
+      showToast('📚 Bắt đầu vòng học thêm — cùng 5 từ vựng, ôn lại cho chắc!');
+    });
+
+    document.getElementById('lesson-pause-btn').addEventListener('click', () => {
+      showToast('⏸️ Đã lưu tiến độ hôm nay. Hẹn gặp lại!');
+      closeLessonOverlay();
+    });
 
     if (!lessonState.xpAwarded) {
       lessonState.xpAwarded = true;
@@ -1333,10 +1362,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderers = [renderVocabStep, renderReadingStep, renderListeningStep, renderWritingStep, renderResultStep];
     renderers[lessonState.step]();
     lessonBody.scrollTop = 0;
+    saveLessonProgress();
   }
 
   function openLessonOverlay() {
-    resetLessonState();
+    const saved = loadLessonProgress();
+    const level = getCurrentLevel();
+    if (saved && saved.date === getTodayStr() && saved.level === level) {
+      lessonState = { ...saved, data: LESSONS[level] };
+      showToast('📌 Đã khôi phục tiến độ bài học hôm nay.');
+    } else {
+      resetLessonState();
+    }
     lessonLevelBadge.textContent = lessonState.data.badge;
     lessonOverlay.classList.add('open');
     lessonOverlay.setAttribute('aria-hidden', 'false');
@@ -1345,6 +1382,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function closeLessonOverlay() {
+    saveLessonProgress();
     lessonOverlay.classList.remove('open');
     lessonOverlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
