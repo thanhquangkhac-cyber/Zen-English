@@ -2898,7 +2898,10 @@
           <span class="lesson-level-badge" id="lesson-level-badge">A1-A2</span>
           <span class="lesson-header-title">Bài Học Hôm Nay</span>
         </div>
-        <button class="lesson-close-btn" id="lesson-close-btn" aria-label="Đóng bài học"><i class="fas fa-times"></i></button>
+        <div class="lesson-header-actions">
+          <button class="lesson-daypicker-btn" id="lesson-daypicker-btn" aria-label="Chọn ngày học"><i class="fas fa-calendar-days"></i> Chọn Ngày</button>
+          <button class="lesson-close-btn" id="lesson-close-btn" aria-label="Đóng bài học"><i class="fas fa-times"></i></button>
+        </div>
       </div>
       <div class="lesson-stepper" id="lesson-stepper">
         <div class="lesson-step-dot active" data-step="0"><span class="lesson-step-num">1</span><span class="lesson-step-label">Từ Vựng</span></div>
@@ -2908,6 +2911,18 @@
         <div class="lesson-step-dot" data-step="4"><span class="lesson-step-num">5</span><span class="lesson-step-label">Đánh Giá</span></div>
       </div>
       <div class="lesson-body" id="lesson-body"></div>
+      <div class="lesson-daypicker-panel" id="lesson-daypicker-panel" aria-hidden="true">
+        <div class="lesson-daypicker-header">
+          <span>Chọn ngày muốn học lại</span>
+          <button class="lesson-daypicker-close" id="lesson-daypicker-close" aria-label="Đóng bảng chọn ngày"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="lesson-daypicker-legend">
+          <span><i class="lesson-day-dot done"></i> Đã học</span>
+          <span><i class="lesson-day-dot current"></i> Ngày hiện tại</span>
+          <span><i class="lesson-day-dot locked"></i> Chưa tới</span>
+        </div>
+        <div class="lesson-daypicker-grid" id="lesson-daypicker-grid"></div>
+      </div>
       <div class="lesson-footer">
         <button class="lesson-nav-btn lesson-back-btn" id="lesson-back-btn"><i class="fas fa-arrow-left"></i> Quay Lại</button>
         <button class="lesson-nav-btn lesson-next-btn btn-primary" id="lesson-next-btn">Tiếp Theo <i class="fas fa-arrow-right"></i></button>

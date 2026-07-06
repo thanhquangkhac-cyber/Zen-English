@@ -3146,6 +3146,7 @@ button, a, [role="button"] {
 }
 
 .lesson-modal {
+  position: relative;
   width: 100%;
   max-width: 720px;
   max-height: 90vh;
@@ -3187,6 +3188,136 @@ button, a, [role="button"] {
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--text-primary);
+}
+
+.lesson-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lesson-daypicker-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.lesson-daypicker-btn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-primary);
+}
+
+.lesson-daypicker-panel {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  z-index: 5;
+  display: none;
+  flex-direction: column;
+  background: var(--bg-primary);
+  padding: 18px 24px;
+  overflow-y: auto;
+}
+
+.lesson-daypicker-panel.open {
+  display: flex;
+}
+
+.lesson-daypicker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.lesson-daypicker-close {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px;
+}
+
+.lesson-daypicker-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.lesson-daypicker-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lesson-day-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.lesson-day-dot.done { background: var(--accent-primary, #6366f1); }
+.lesson-day-dot.current { background: #f59e0b; }
+.lesson-day-dot.locked { background: var(--border-color); }
+
+.lesson-daypicker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  gap: 8px;
+}
+
+.lesson-day-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: var(--radius-sm, 8px);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.lesson-day-cell:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+}
+
+.lesson-day-cell.done {
+  background: color-mix(in srgb, var(--accent-primary, #6366f1) 15%, var(--bg-secondary));
+  border-color: var(--accent-primary, #6366f1);
+}
+
+.lesson-day-cell.current {
+  background: color-mix(in srgb, #f59e0b 20%, var(--bg-secondary));
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.lesson-day-cell.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .lesson-close-btn {

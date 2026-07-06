@@ -9357,6 +9357,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const lessonNextBtn   = document.getElementById('lesson-next-btn');
   const lessonLevelBadge= document.getElementById('lesson-level-badge');
   const lessonStepDots  = document.querySelectorAll('.lesson-step-dot');
+  const daypickerBtn    = document.getElementById('lesson-daypicker-btn');
+  const daypickerPanel  = document.getElementById('lesson-daypicker-panel');
+  const daypickerClose  = document.getElementById('lesson-daypicker-close');
+  const daypickerGrid   = document.getElementById('lesson-daypicker-grid');
 
   let lessonState = null;
 
@@ -9395,13 +9399,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return days[(safeDay - 1) % days.length];
   }
 
-  function resetLessonState() {
+  function resetLessonState(overrideDay) {
     const level = getCurrentLevel();
-    const dayNumber = getCurrentDay(level);
+    const currentRoadmapDay = getCurrentDay(level);
+    const dayNumber = Number.isInteger(overrideDay) && overrideDay > 0 ? overrideDay : currentRoadmapDay;
     const data = getDayContent(level, dayNumber);
     lessonState = {
       level,
       dayNumber,
+      // Reviewing a day other than today's roadmap day is just practice — it must not
+      // advance the roadmap or overwrite today's in-progress save.
+      isReviewDay: dayNumber !== currentRoadmapDay,
       data,
       step: 0,
       // Adaptive vocab round: test-first, teach only the words missed, retest those at the end.
@@ -9425,6 +9433,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveLessonProgress() {
     if (!lessonState) return;
+    // Reviewing a past/future day is just practice — don't let it clobber today's real
+    // in-progress save, or resuming the app later would drop the learner into the review
+    // session instead of today's roadmap lesson.
+    if (lessonState.isReviewDay) return;
     const { data, ...toSave } = lessonState; // `data` is just a reference to the static LESSONS entry — no need to persist it
     toSave.date = getTodayStr();
     localStorage.setItem(LESSON_PROGRESS_KEY, JSON.stringify(toSave));
@@ -9884,13 +9896,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!lessonState.xpAwarded) {
       lessonState.xpAwarded = true;
-      addXP(20);
-      showToast('🎉 Hoàn thành bài học hôm nay! +20 XP thưởng.');
-      // Advance the roadmap by one day so "Học Thêm" (or the next visit) serves fresh content —
-      // diligent learners doing multiple rounds in one sitting race ahead through the roadmap.
-      const dayProgress = loadDayProgress();
-      if ((dayProgress[lessonState.level] || 1) === lessonState.dayNumber) {
-        advanceDay(lessonState.level);
+      if (lessonState.isReviewDay) {
+        addXP(8);
+        showToast(`🔁 Đã ôn lại Ngày ${lessonState.dayNumber}! +8 XP thưởng.`);
+      } else {
+        addXP(20);
+        showToast('🎉 Hoàn thành bài học hôm nay! +20 XP thưởng.');
+        // Advance the roadmap by one day so "Học Thêm" (or the next visit) serves fresh content —
+        // diligent learners doing multiple rounds in one sitting race ahead through the roadmap.
+        const dayProgress = loadDayProgress();
+        if ((dayProgress[lessonState.level] || 1) === lessonState.dayNumber) {
+          advanceDay(lessonState.level);
+        }
       }
     }
   }
@@ -9903,6 +9920,40 @@ document.addEventListener('DOMContentLoaded', () => {
     lessonBody.scrollTop = 0;
     saveLessonProgress();
   }
+
+  function openDaypicker() {
+    const level = getCurrentLevel();
+    const totalDays = LESSONS[level].days.length;
+    const currentRoadmapDay = getCurrentDay(level);
+    let cellsHtml = '';
+    for (let day = 1; day <= totalDays; day++) {
+      let cls = 'lesson-day-cell';
+      if (day === currentRoadmapDay) cls += ' current';
+      else if (day < currentRoadmapDay) cls += ' done';
+      cellsHtml += `<button type="button" class="${cls}" data-day="${day}">${day}</button>`;
+    }
+    daypickerGrid.innerHTML = cellsHtml;
+    daypickerGrid.querySelectorAll('.lesson-day-cell').forEach(cell => {
+      cell.addEventListener('click', () => {
+        const day = parseInt(cell.getAttribute('data-day'), 10);
+        closeDaypicker();
+        resetLessonState(day);
+        lessonLevelBadge.textContent = `${LESSONS[lessonState.level].badge} · Ngày ${lessonState.dayNumber}`;
+        renderLessonStep();
+        if (lessonState.isReviewDay) showToast(`🔁 Đang ôn lại Ngày ${day}.`);
+      });
+    });
+    daypickerPanel.classList.add('open');
+    daypickerPanel.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeDaypicker() {
+    daypickerPanel.classList.remove('open');
+    daypickerPanel.setAttribute('aria-hidden', 'true');
+  }
+
+  daypickerBtn?.addEventListener('click', openDaypicker);
+  daypickerClose?.addEventListener('click', closeDaypicker);
 
   function openLessonOverlay() {
     const saved = loadLessonProgress();
@@ -9925,6 +9976,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function closeLessonOverlay() {
     saveLessonProgress();
+    closeDaypicker();
     lessonOverlay.classList.remove('open');
     lessonOverlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
